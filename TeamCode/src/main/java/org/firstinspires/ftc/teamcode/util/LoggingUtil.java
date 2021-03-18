@@ -25,7 +25,7 @@ public class LoggingUtil {
             }
         }
     }
-
+/*
     private static void pruneLogsIfNecessary() {
         List<File> logFiles = new ArrayList<>();
         buildLogList(logFiles, ROAD_RUNNER_FOLDER);
@@ -53,7 +53,7 @@ public class LoggingUtil {
         //noinspection ResultOfMethodCallIgnored
         ROAD_RUNNER_FOLDER.mkdirs();
 
-        pruneLogsIfNecessary();
+        //pruneLogsIfNecessary();
 
         return new File(ROAD_RUNNER_FOLDER, name);
     }
