@@ -64,8 +64,8 @@ public class jmacTeleOp extends LinearOpMode {
         currentState = IDLE;
 
         /*
-        mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.25, 0.125, 0, 12.5);
-        mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.25,0.125, 0, 12.5);
+        mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
+        mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.32125,0.132125, 0, 13.2125);
         mDrive.FlyWheel1.setPositionPIDFCoefficients(5.0);
         mDrive.FlyWheel2.setPositionPIDFCoefficients(5.0);
         */
@@ -196,8 +196,8 @@ public class jmacTeleOp extends LinearOpMode {
         telemetry.addData("maximum velocity 2", maxVelocity2);
         telemetry.update();
         */
-        mDrive.FlyWheel1.setVelocity(gamepad2.left_trigger * 2540);
-        mDrive.FlyWheel2.setVelocity(gamepad2.left_trigger * 2540);
+        mDrive.FlyWheel1.setVelocity(gamepad2.left_trigger * 2600);
+        mDrive.FlyWheel2.setVelocity(gamepad2.left_trigger * 2600);
         //mDrive.FlyWheel1.setPower(gamepad2.left_trigger);
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger);
         if (gamepad2.right_trigger > 0.4)
