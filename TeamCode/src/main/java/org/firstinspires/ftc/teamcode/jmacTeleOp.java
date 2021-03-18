@@ -63,12 +63,12 @@ public class jmacTeleOp extends LinearOpMode {
         Vision vision = new Vision(this);
         currentState = IDLE;
 
-        /*
+
         mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
         mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.32125,0.132125, 0, 13.2125);
         mDrive.FlyWheel1.setPositionPIDFCoefficients(5.0);
         mDrive.FlyWheel2.setPositionPIDFCoefficients(5.0);
-        */
+        
 
         waitForStart();
 
