@@ -39,7 +39,7 @@ public class DrivetrainHardware {
     public DistanceSensor distanceBackRight;
     */
 
-    public RevBlinkinLedDriver blink; //3
+   // public RevBlinkinLedDriver blink; //3
 
     //public VoltageSensor voltageSensor;
 
@@ -60,7 +60,7 @@ public class DrivetrainHardware {
         ringHopper = null;
         Arm = null;
         claw = null;
-        blink = null;
+     //   blink = null;
 
         /*
         distanceFrontRight = null;
@@ -75,10 +75,10 @@ public class DrivetrainHardware {
     {
         hardwareMap = h;
 
-        BR = hardwareMap.get(DcMotor.class, "M0");
-        FR = hardwareMap.get(DcMotor.class, "M1");
-        FL = hardwareMap.get(DcMotor.class, "M2");
-        BL = hardwareMap.get(DcMotor.class, "M3");
+        BR = hardwareMap.get(DcMotor.class, "rightRear");
+        FR = hardwareMap.get(DcMotor.class, "rightFront");
+        FL = hardwareMap.get(DcMotor.class, "leftRear");
+        BL = hardwareMap.get(DcMotor.class, "leftFront");
         FlyWheel1 = hardwareMap.get(DcMotorEx.class, "FW1");
         FlyWheel2 = hardwareMap.get(DcMotorEx.class, "FW2");
         Intake = hardwareMap.get(DcMotor.class, "Intake");
@@ -106,8 +106,8 @@ public class DrivetrainHardware {
         distanceBackRight = hardwareMap.get(DistanceSensor.class, "bus3");
         */
 
-        blink = hardwareMap.get(RevBlinkinLedDriver.class, "blink");
-        blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
+        //blink = hardwareMap.get(RevBlinkinLedDriver.class, "blink");
+        //blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
 
 
         FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

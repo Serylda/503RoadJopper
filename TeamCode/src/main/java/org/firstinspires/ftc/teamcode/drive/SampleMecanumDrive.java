@@ -172,6 +172,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         // TODO: if desired, use setLocalizer() to change the localization method
 
         setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
+
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
     }
 

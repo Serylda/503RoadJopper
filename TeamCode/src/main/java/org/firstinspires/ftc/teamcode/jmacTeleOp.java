@@ -82,7 +82,7 @@ public class jmacTeleOp extends LinearOpMode {
            runServos();
            doArm();
            doVarious();
-           runVoltageLED();
+         //  runVoltageLED();
            runRGBPatternSwitch();
         }
     }
@@ -196,7 +196,7 @@ public class jmacTeleOp extends LinearOpMode {
         telemetry.addData("maximum velocity 2", maxVelocity2);
         telemetry.update();
         */
-        mDrive.FlyWheel1.setVelocity(gamepad2.left_trigger * 2600);
+        mDrive.FlyWheel1.setVelocity(gamepad2.left_trigger * 1600);
         mDrive.FlyWheel2.setVelocity(gamepad2.left_trigger * 2600);
         //mDrive.FlyWheel1.setPower(gamepad2.left_trigger);
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger);
@@ -293,7 +293,7 @@ public class jmacTeleOp extends LinearOpMode {
         }*/
 
     }
-
+/*
     public void runVoltageLED()
     {
         double voltage = mDrive.getVoltage();
@@ -310,4 +310,6 @@ public class jmacTeleOp extends LinearOpMode {
         else
             mDrive.blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_RED);
     }
+
+ */
 }
