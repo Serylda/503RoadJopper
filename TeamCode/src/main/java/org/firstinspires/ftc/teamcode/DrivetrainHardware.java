@@ -75,10 +75,10 @@ public class DrivetrainHardware {
     {
         hardwareMap = h;
 
-        BR = hardwareMap.get(DcMotor.class, "rightRear");
-        FR = hardwareMap.get(DcMotor.class, "rightFront");
-        FL = hardwareMap.get(DcMotor.class, "leftRear");
-        BL = hardwareMap.get(DcMotor.class, "leftFront");
+        BR = hardwareMap.get(DcMotor.class, "M0");
+        FR = hardwareMap.get(DcMotor.class, "M1");
+        FL = hardwareMap.get(DcMotor.class, "M2");
+        BL = hardwareMap.get(DcMotor.class, "M3");
         FlyWheel1 = hardwareMap.get(DcMotorEx.class, "FW1");
         FlyWheel2 = hardwareMap.get(DcMotorEx.class, "FW2");
         Intake = hardwareMap.get(DcMotor.class, "Intake");
