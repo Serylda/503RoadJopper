@@ -76,12 +76,13 @@ public class jmacTeleOp extends LinearOpMode {
         {
             currentState = IDLE;
            drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
-           runIntake();
-           runFlyWheel();
-           runPivot();
-           runServos();
-           doArm();
-           doVarious();
+
+          // runIntake();
+          // runFlyWheel();
+          // runPivot();
+          // runServos();
+          // doArm();
+          // doVarious();
          //  runVoltageLED();
            runRGBPatternSwitch();
         }
@@ -143,6 +144,7 @@ public class jmacTeleOp extends LinearOpMode {
         telemetry.update();*/
         currentState = MANEUVERING;
     }
+
 
     public void runFlyWheel()
     {

@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +10,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 public class DrivetrainHardware {
-    
+
     public DcMotor FL; //Motor 0 - LM0
     public DcMotor BL; //Motor 1 - LM1
     public DcMotor BR; //Motor 2 - RM2
@@ -39,12 +38,12 @@ public class DrivetrainHardware {
     public DistanceSensor distanceBackRight;
     */
 
-   // public RevBlinkinLedDriver blink; //3
+    //public RevBlinkinLedDriver blink; //3
 
     //public VoltageSensor voltageSensor;
 
     HardwareMap hardwareMap;
-    
+
     public DrivetrainHardware()
     {
         FL = null;
@@ -60,7 +59,7 @@ public class DrivetrainHardware {
         ringHopper = null;
         Arm = null;
         claw = null;
-     //   blink = null;
+       // blink = null;
 
         /*
         distanceFrontRight = null;
@@ -70,7 +69,7 @@ public class DrivetrainHardware {
         */
 
     }
-    
+
     public void init(HardwareMap h)
     {
         hardwareMap = h;
@@ -105,10 +104,12 @@ public class DrivetrainHardware {
         distanceBackLeft = hardwareMap.get(DistanceSensor.class, "bus2");
         distanceBackRight = hardwareMap.get(DistanceSensor.class, "bus3");
         */
+/*
+        blink = hardwareMap.get(RevBlinkinLedDriver.class, "blink");
+        blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
 
-        //blink = hardwareMap.get(RevBlinkinLedDriver.class, "blink");
-        //blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_WHITE);
 
+ */
 
         FL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -121,7 +122,7 @@ public class DrivetrainHardware {
         freeze();
 
         FL.setDirection(DcMotor.Direction.FORWARD);
-        BL.setDirection(DcMotor.Direction.FORWARD);
+        BL.setDirection(DcMotor.Direction.REVERSE);
         BR.setDirection(DcMotor.Direction.REVERSE);
         FR.setDirection(DcMotor.Direction.REVERSE);
         FlyWheel1.setDirection(DcMotor.Direction.REVERSE);
