@@ -64,10 +64,7 @@ public class jmacTeleOp extends LinearOpMode {
         currentState = IDLE;
 
 
-        mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
-        mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.32125,0.132125, 0, 13.2125);
-        mDrive.FlyWheel1.setPositionPIDFCoefficients(5.0);
-        mDrive.FlyWheel2.setPositionPIDFCoefficients(5.0);
+      //  mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
         
 
         waitForStart();
@@ -77,13 +74,13 @@ public class jmacTeleOp extends LinearOpMode {
             currentState = IDLE;
            drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-          // runIntake();
-          // runFlyWheel();
-          // runPivot();
-          // runServos();
-          // doArm();
-          // doVarious();
-         //  runVoltageLED();
+          runIntake();
+          runFlyWheel();
+          runPivot();
+          runServos();
+          doArm();
+         // doVarious();
+         //runVoltageLED();
            runRGBPatternSwitch();
         }
     }
@@ -149,70 +146,26 @@ public class jmacTeleOp extends LinearOpMode {
     public void runFlyWheel()
     {
 
-        /*
-        if(gamepad2.dpad_down == true){
-            mode = 0;
-
-        }
-        if(gamepad2.dpad_up == true){
-            mode = 1;
-
-
-        }
-        if(mode == 0){
-            double shootingVelocity = (gamepad2.left_trigger*0.8*2500);
-            mDrive.FlyWheel2.setVelocity(shootingVelocity);
-            mDrive.FlyWheel1.setVelocity(shootingVelocity);
-            telemetry.addLine("Powershot mode");
-            telemetry.update();
-
-        }
-        if(mode == 1){
-            double shootingVelocity = (gamepad2.left_trigger*2500);
-            mDrive.FlyWheel2.setVelocity(shootingVelocity);
-            mDrive.FlyWheel1.setVelocity(shootingVelocity);
-            telemetry.addLine("highgoal mode");
-            telemetry.update();
-        }
-
-
-
-         */
-        /*
-        mDrive.FlyWheel1.setPower(1);
-        mDrive.FlyWheel2.setPower(1);
-
-        double currentVelocity = mDrive.FlyWheel1.getVelocity();
-        double currentVelocity2 = mDrive.FlyWheel2.getVelocity();
-
-        if (currentVelocity > maxVelocity) {
-            maxVelocity = currentVelocity;
-        }
-        if (currentVelocity2 > maxVelocity2) {
-            maxVelocity2 = currentVelocity2;
-        }
-
-        telemetry.addData("current velocity", currentVelocity);
-        telemetry.addData("maximum velocity", maxVelocity);
-        telemetry.addData("current velocity 2", currentVelocity2);
-        telemetry.addData("maximum velocity 2", maxVelocity2);
-        telemetry.update();
-        */
-        mDrive.FlyWheel1.setVelocity(gamepad2.left_trigger * 1170);
-        mDrive.FlyWheel2.setVelocity(gamepad2.left_trigger * 1970);
-        //mDrive.FlyWheel1.setPower(gamepad2.left_trigger);
-        //mDrive.FlyWheel2.setPower(gamepad2.left_trigger);
+        mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.78);
+        mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.78);
         if (gamepad2.right_trigger > 0.4)
             mDrive.ringHopper.setPosition(1);
         else
             mDrive.ringHopper.setPosition(0.5);
+        if (gamepad2.x){
+            mDrive.FlyWheel1.setPower(0.75);
+            mDrive.FlyWheel2.setPower(0.75);
 
 
+        }
+
+        telemetry.addData("vel2", mDrive.FlyWheel2.getVelocity());
+        telemetry.update();
     }
 
     public void runIntake() {
         if (gamepad1.right_trigger > 0.2)
-            mDrive.Intake.setPower(gamepad1.right_trigger);
+            mDrive.Intake.setPower(gamepad1.left_stick_y);
         else if (gamepad1.left_trigger > 0.2)
             mDrive.Intake.setPower(-gamepad1.left_trigger);
         else if (Math.abs(gamepad2.left_stick_y) > 0.2)
@@ -234,14 +187,14 @@ public class jmacTeleOp extends LinearOpMode {
     public void runPivot()
 
     {
-        mDrive.Intake.setPower(3 * gamepad2.left_stick_y / 4);
+        //mDrive.Intake.setPower(3 * gamepad2.left_stick_y / 4);
     }
 
     public void runServos()
     {
-        if(gamepad2.left_bumper)
+        if(gamepad2.a)
             mDrive.claw.setPosition(1);
-        else if (gamepad2.right_bumper)
+        else if (gamepad2.b)
             mDrive.claw.setPosition(0);
     }
     public void doVarious()
