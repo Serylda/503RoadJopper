@@ -64,8 +64,7 @@ public class jmacTeleOp extends LinearOpMode {
         currentState = IDLE;
 
 
-      //  mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
-        
+        mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
 
         waitForStart();
 
@@ -145,18 +144,29 @@ public class jmacTeleOp extends LinearOpMode {
 
     public void runFlyWheel()
     {
+        if (gamepad2.left_trigger> 0.2) {
+            mDrive.FlyWheel1.setVelocity(1820 * 13.6 / mDrive.getVoltage());
+            mDrive.FlyWheel2.setVelocity(1820 * 13.6 / mDrive.getVoltage());
+        }
+        else {
+            mDrive.FlyWheel1.setPower(0);
+            mDrive.FlyWheel2.setPower(0);
+        }
 
-        mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.78);
-        mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.78);
+        //mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.8);
+        //mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.8);
         if (gamepad2.right_trigger > 0.4)
             mDrive.ringHopper.setPosition(1);
         else
             mDrive.ringHopper.setPosition(0.5);
-        if (gamepad2.x){
-            mDrive.FlyWheel1.setPower(0.75);
-            mDrive.FlyWheel2.setPower(0.75);
 
-
+        if (gamepad2.x) {
+            mDrive.FlyWheel1.setVelocity(1600 * 13.6 / mDrive.getVoltage());
+            mDrive.FlyWheel2.setVelocity(1600 * 13.6 / mDrive.getVoltage());
+        }
+        else {
+                mDrive.FlyWheel1.setPower(0);
+                mDrive.FlyWheel2.setPower(0);
         }
 
         telemetry.addData("vel2", mDrive.FlyWheel2.getVelocity());
@@ -165,7 +175,7 @@ public class jmacTeleOp extends LinearOpMode {
 
     public void runIntake() {
         if (gamepad1.right_trigger > 0.2)
-            mDrive.Intake.setPower(gamepad1.left_stick_y);
+            mDrive.Intake.setPower(gamepad1.right_trigger);
         else if (gamepad1.left_trigger > 0.2)
             mDrive.Intake.setPower(-gamepad1.left_trigger);
         else if (Math.abs(gamepad2.left_stick_y) > 0.2)

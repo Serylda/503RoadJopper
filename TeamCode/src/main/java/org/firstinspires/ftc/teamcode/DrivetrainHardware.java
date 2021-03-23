@@ -122,7 +122,7 @@ public class DrivetrainHardware {
         freeze();
 
         FL.setDirection(DcMotor.Direction.FORWARD);
-        BL.setDirection(DcMotor.Direction.REVERSE);
+        BL.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.REVERSE);
         FR.setDirection(DcMotor.Direction.REVERSE);
         FlyWheel1.setDirection(DcMotor.Direction.REVERSE);
