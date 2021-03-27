@@ -154,27 +154,19 @@ public class jmacTeleOp extends LinearOpMode {
             mDrive.FlyWheel1.setPower(0);
             mDrive.FlyWheel2.setPower(0);
         }
-        if(gamepad2.dpad_down){
-            indexDirection = -1;
 
-        }
-        if (gamepad2.dpad_up){
-            indexDirection = 1;
-
-
-        }
 
         //mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.8);
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.8);
         if (gamepad2.right_trigger > 0.4) {
-            mDrive.ringHopper.setPower(indexDirection);
+            mDrive.ringHopper.setPosition(1);
             sleep(100);
-            mDrive.ringHopper.setPower(indexDirection*-1);
+            mDrive.ringHopper.setPosition(0);
             sleep(100);
-            mDrive.ringHopper.setPower(0);
+            mDrive.ringHopper.setPosition(0.5);
         }
         else
-            mDrive.ringHopper.setPower(0);
+            mDrive.ringHopper.setPosition(0.5);
 
         if (gamepad2.x) {
             mDrive.FlyWheel1.setVelocity(1600 * 13.6 / mDrive.getVoltage());
@@ -219,7 +211,7 @@ public class jmacTeleOp extends LinearOpMode {
     public void runServos()
     {
         if(gamepad2.a)
-            mDrive.claw.setPosition(1);
+            mDrive.claw.setPosition(0.9);
         else if (gamepad2.b)
             mDrive.claw.setPosition(0);
     }
@@ -241,7 +233,7 @@ public class jmacTeleOp extends LinearOpMode {
         {
             telemetry.speak("At max rendering distance and I still can't find who asked.");
             telemetry.update();
-        }
+\=        }
         if(gamepad1.a)
         {
             telemetry.speak("when, when, when did I ask LOLOLOLOLOLOLOLOL");

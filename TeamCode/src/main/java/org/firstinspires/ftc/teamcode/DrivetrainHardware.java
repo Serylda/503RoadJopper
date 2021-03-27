@@ -22,7 +22,7 @@ public class DrivetrainHardware {
     public DcMotor Arm; //Motor 3
 
     public Servo claw; //0, 1
-    public CRServo ringHopper; // intake2; //2, 3
+    public Servo ringHopper; // intake2; //2, 3
 
     public BNO055IMU imu; //bus 0
 
@@ -83,7 +83,7 @@ public class DrivetrainHardware {
         Intake = hardwareMap.get(DcMotor.class, "Intake");
         Arm = hardwareMap.get(DcMotor.class, "Arm");
 
-        ringHopper = hardwareMap.get(CRServo.class, "hopper"); //0
+        ringHopper = hardwareMap.get(Servo.class, "hopper"); //0
         claw = hardwareMap.get(Servo.class, "claw"); //1
         //intake1 = hardwareMap.get(CRServo.class, "intake1");
         //intake2 = hardwareMap.get(CRServo.class, "intake2");

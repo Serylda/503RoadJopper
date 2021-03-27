@@ -512,38 +512,40 @@ public class JmacAuto extends LinearOpMode {
         mDrive.FlyWheel2.setPower(1.0);
         sleep(1500);
 
-        mDrive.ringHopper.setPower(-1);
+        mDrive.ringHopper.setPosition(1);
         sleep(100);
-        mDrive.ringHopper.setPower(1);
+        mDrive.ringHopper.setPosition(0);
         sleep(100);
-        mDrive.ringHopper.setPower(0);
+        mDrive.ringHopper.setPosition(0.5);
 
         sleep(750);
 
-        mDrive.ringHopper.setPower(-1);
+        mDrive.ringHopper.setPosition(1);
         sleep(100);
-        mDrive.ringHopper.setPower(1);
+        mDrive.ringHopper.setPosition(0);
         sleep(100);
-        mDrive.ringHopper.setPower(0);
+        mDrive.ringHopper.setPosition(0.5);
 
         sleep(750);
 
-        mDrive.ringHopper.setPower(-1);
+        mDrive.ringHopper.setPosition(1);
         sleep(100);
-        mDrive.ringHopper.setPower(1);
+        mDrive.ringHopper.setPosition(0);
         sleep(100);
-        mDrive.ringHopper.setPower(0);
+        mDrive.ringHopper.setPosition(0.5);
         
         sleep(750);
 
-        mDrive.ringHopper.setPower(-1);
+        mDrive.ringHopper.setPosition(1);
         sleep(100);
-        mDrive.ringHopper.setPower(1);
+        mDrive.ringHopper.setPosition(0);
         sleep(100);
 
-        mDrive.ringHopper.setPower(0);
+        mDrive.ringHopper.setPosition(0.5);
         mDrive.FlyWheel1.setPower(0);
         mDrive.FlyWheel2.setPower(0);
+
+
     }
 
 
