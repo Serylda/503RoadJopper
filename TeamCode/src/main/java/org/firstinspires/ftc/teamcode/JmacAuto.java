@@ -53,6 +53,8 @@ public class JmacAuto extends LinearOpMode {
 
         while (!isStarted()) {
             mDrive.claw.setPosition(0);
+            mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+            mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
             ringCount = vision.ringCount('r');
             telemetry.addData("Ring Count: ", ringCount);
             telemetry.update();
@@ -508,43 +510,42 @@ public class JmacAuto extends LinearOpMode {
 
     public void monkeShoot()
     {
-        mDrive.FlyWheel1.setPower(1.0);
-        mDrive.FlyWheel2.setPower(1.0);
+        mDrive.FlyWheel1.setVelocity(1820 * 13.6 / mDrive.getVoltage());
+        mDrive.FlyWheel2.setVelocity(1820 * 13.6 / mDrive.getVoltage());
         sleep(1500);
 
         mDrive.ringHopper.setPosition(1);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0.5);
 
         sleep(750);
 
         mDrive.ringHopper.setPosition(1);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0.5);
 
         sleep(750);
 
         mDrive.ringHopper.setPosition(1);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0.5);
         
         sleep(750);
 
         mDrive.ringHopper.setPosition(1);
-        sleep(100);
+        sleep(75);
         mDrive.ringHopper.setPosition(0);
-        sleep(100);
+        sleep(75);
 
         mDrive.ringHopper.setPosition(0.5);
         mDrive.FlyWheel1.setPower(0);
         mDrive.FlyWheel2.setPower(0);
-
 
     }
 

@@ -92,7 +92,7 @@ public class jmacTeleOp extends LinearOpMode {
 
         double magnitude = Math.sqrt(x * x + y * y);
         double distance = Math.atan2(y, x);
-        double turn = 4* t / 5;
+        double turn =  2 * t / 3.0;
 
 
         //calculate power with angle and magnitude
@@ -158,19 +158,23 @@ public class jmacTeleOp extends LinearOpMode {
 
         //mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.8);
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.8);
+
+
         if (gamepad2.right_trigger > 0.4) {
+            mDrive.ringHopper.setPosition(0.9);
+            /*
             mDrive.ringHopper.setPosition(1);
-            sleep(100);
+            sleep(75);
             mDrive.ringHopper.setPosition(0);
-            sleep(100);
-            mDrive.ringHopper.setPosition(0.5);
+            sleep(75);
+            mDrive.ringHopper.setPosition(0.5);*/
         }
         else
             mDrive.ringHopper.setPosition(0.5);
 
         if (gamepad2.x) {
-            mDrive.FlyWheel1.setVelocity(1600 * 13.6 / mDrive.getVoltage());
-            mDrive.FlyWheel2.setVelocity(1600 * 13.6 / mDrive.getVoltage());
+            mDrive.FlyWheel1.setVelocity(1520 * 13.6 / mDrive.getVoltage());
+            mDrive.FlyWheel2.setVelocity(1520 * 13.6 / mDrive.getVoltage());
         }
         else {
                 mDrive.FlyWheel1.setPower(0);
@@ -233,7 +237,7 @@ public class jmacTeleOp extends LinearOpMode {
         {
             telemetry.speak("At max rendering distance and I still can't find who asked.");
             telemetry.update();
-\=        }
+        }
         if(gamepad1.a)
         {
             telemetry.speak("when, when, when did I ask LOLOLOLOLOLOLOLOL");
