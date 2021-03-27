@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -70,7 +70,7 @@ public class PIDTest extends LinearOpMode {
     public double sigmoid(double error, double ceiling, double floor, double half, double stiff) {
         return floor + (ceiling - floor) / (1 + Math.pow(Math.E, stiff * (half - error)));
     }*/
-
+/*
     public void linearMovement(double distance, double timeframe, double kP, double kI, double kD) {
         double conversionIndex = 1104.04; // ticks per inch
         double timeFrame = timeframe; //distance * distanceTimeIndex;
@@ -222,7 +222,7 @@ public class PIDTest extends LinearOpMode {
             //telemetry.addData("p", p);
             //telemetry.addData("i", i);
             //telemetry.addData("d", d);*/
-            telemetry.update();
+  /*          telemetry.update();
 
 
             if (error > 0)
@@ -329,4 +329,4 @@ public class PIDTest extends LinearOpMode {
         mDrive.FR.setPower(0);
         mDrive.BR.setPower(0);
     }
-}
+} */

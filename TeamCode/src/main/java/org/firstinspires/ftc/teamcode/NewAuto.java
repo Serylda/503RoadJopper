@@ -1,4 +1,4 @@
-
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -12,12 +12,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 @Autonomous(name="New Auto", group="auto")
 //@Disabled
 public class NewAuto extends LinearOpMode {
-
-    DrivetrainHardware mDrive = new DrivetrainHardware();
+/*
+  /*  DrivetrainHardware mDrive = new DrivetrainHardware();
 
     BNO055IMU imu;
     //ElapsedTime clock = new ElapsedTime();
-
+/*
     int ringCount;
     double globalAngle;
     Orientation lastAngles = new Orientation();
@@ -80,7 +80,7 @@ public class NewAuto extends LinearOpMode {
                     sleep(600);
                     mDrive.Arm.setPower(0);
                     turnDegree(60, 3.5, 0.0118,0.005, 0.0015);
-                    /*//shoot();
+                    shoot();
                     turnDegree(-17, 2.5, 0.0118,0.008, 0.0015);
                     //resetShooter();
                     linearMovement(-39, 3.5, 0.00048, 0.0000624, 0.0000365);
@@ -109,7 +109,7 @@ public class NewAuto extends LinearOpMode {
                     mDrive.Arm.setPower(1);
                     sleep(500);
                     mDrive.Arm.setPower(0);
-                    strafeLeft();   */
+                    strafeLeft();   *//*
                     break;
                 case 1:
                     mDrive.claw.setPosition(1);
@@ -212,7 +212,7 @@ public class NewAuto extends LinearOpMode {
     public double sigmoid(double error, double ceiling, double floor, double half, double stiff) {
         return floor + (ceiling - floor) / (1 + Math.pow(Math.E, stiff * (half - error)));
     }*/
-
+/*
     public void linearMovement(double distance, double timeframe, double kP, double kI, double kD) {
         double conversionIndex = 1104.04; // ticks per inch
         double timeFrame = timeframe; //distance * distanceTimeIndex;
@@ -364,7 +364,7 @@ public class NewAuto extends LinearOpMode {
             //telemetry.addData("p", p);
             //telemetry.addData("i", i);
             //telemetry.addData("d", d);*/
-            telemetry.update();
+         /*   telemetry.update();
 
 
             if (error > 0)
@@ -469,6 +469,4 @@ public class NewAuto extends LinearOpMode {
         mDrive.FL.setPower(0);
         mDrive.BL.setPower(0);
         mDrive.FR.setPower(0);
-        mDrive.BR.setPower(0);
-    }
-}
+        mDrive.BR.setPower(0);*/

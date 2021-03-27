@@ -1,4 +1,4 @@
-
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -206,7 +206,7 @@ public class CombinedAuto extends LinearOpMode {
     public double sigmoid(double error, double ceiling, double floor, double half, double stiff) {
         return floor + (ceiling - floor) / (1 + Math.pow(Math.E, stiff * (half - error)));
     }*/
-
+/*
     public void linearMovement(double distance, double timeframe, double kP, double kI, double kD) {
         double conversionIndex = NUMBER_OF_ENCODER_TICKS_PER_REVOLUTION / MOTOR_TO_INCHES; // ticks per inch
         double timeFrame = timeframe; //distance * distanceTimeIndex;
@@ -346,7 +346,7 @@ public class CombinedAuto extends LinearOpMode {
             telemetry.addData("error ", error);
             //telemetry.addData("p", p);
             //telemetry.addData("i", i);
-            //telemetry.addData("d", d);*/
+            //telemetry.addData("d", d);
             telemetry.update();
 
 
@@ -455,3 +455,4 @@ public class CombinedAuto extends LinearOpMode {
         mDrive.BR.setPower(0);
     }
 }
+*/
