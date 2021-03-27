@@ -186,7 +186,7 @@ public class DrivetrainHardware {
 
 
     public double getEncoderAvg()
-    { return ((Math.abs(FR.getCurrentPosition())));} // + Math.abs(BR.getCurrentPosition())) / 2.0); }
+    { return ((Math.abs(FR.getCurrentPosition()) + Math.abs(FL.getCurrentPosition())) / 2.0); }//br
 
     /*
     public double getEncoderAvg() {
