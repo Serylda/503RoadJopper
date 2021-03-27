@@ -391,7 +391,7 @@ public class JmacAuto extends LinearOpMode {
         mDrive.FR.setPower(0);
         mDrive.BR.setPower(0);
     }
-
+/*
     public void shoot()
     {
         mDrive.ringHopper.setPosition(1);
@@ -426,7 +426,7 @@ public class JmacAuto extends LinearOpMode {
         mDrive.Intake.setPower(0);
         mDrive.ringHopper.setPosition(0.5);
     }
-
+*/
     public void strafeLeft()
     {
         mDrive.FL.setPower(1);
@@ -511,21 +511,37 @@ public class JmacAuto extends LinearOpMode {
         mDrive.FlyWheel1.setPower(1.0);
         mDrive.FlyWheel2.setPower(1.0);
         sleep(1500);
-        mDrive.ringHopper.setPosition(1);
-        sleep(500);
-        mDrive.ringHopper.setPosition(0.5);
+
+        mDrive.ringHopper.setPower(1);
+        sleep(100);
+        mDrive.ringHopper.setPower(-1);
+        sleep(100);
+        mDrive.ringHopper.setPower(0);
+
         sleep(750);
-        mDrive.ringHopper.setPosition(1);
-        sleep(500);
-        mDrive.ringHopper.setPosition(0.5);
+
+        mDrive.ringHopper.setPower(1);
+        sleep(100);
+        mDrive.ringHopper.setPower(-1);
+        sleep(100);
+        mDrive.ringHopper.setPower(0);
+
         sleep(750);
-        mDrive.ringHopper.setPosition(1);
-        sleep(500);
-        mDrive.ringHopper.setPosition(0.5);
+
+        mDrive.ringHopper.setPower(1);
+        sleep(100);
+        mDrive.ringHopper.setPower(-1);
+        sleep(100);
+        mDrive.ringHopper.setPower(0);
+        
         sleep(750);
-        mDrive.ringHopper.setPosition(1);
-        sleep(500);
-        mDrive.ringHopper.setPosition(0.5);
+
+        mDrive.ringHopper.setPower(1);
+        sleep(100);
+        mDrive.ringHopper.setPower(-1);
+        sleep(100);
+
+        mDrive.ringHopper.setPower(0);
         mDrive.FlyWheel1.setPower(0);
         mDrive.FlyWheel2.setPower(0);
     }

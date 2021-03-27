@@ -156,10 +156,15 @@ public class jmacTeleOp extends LinearOpMode {
 
         //mDrive.FlyWheel1.setPower(gamepad2.left_trigger*0.8);
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.8);
-        if (gamepad2.right_trigger > 0.4)
-            mDrive.ringHopper.setPosition(1);
+        if (gamepad2.right_trigger > 0.4) {
+            mDrive.ringHopper.setPower(1);
+            sleep(100);
+            mDrive.ringHopper.setPower(-1);
+            sleep(100);
+            mDrive.ringHopper.setPower(0);
+        }
         else
-            mDrive.ringHopper.setPosition(0.5);
+            mDrive.ringHopper.setPower(0);
 
         if (gamepad2.x) {
             mDrive.FlyWheel1.setVelocity(1600 * 13.6 / mDrive.getVoltage());
