@@ -65,6 +65,7 @@ public class jmacTeleOp extends LinearOpMode {
 
 
         mDrive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+        mDrive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
 
         waitForStart();
 
