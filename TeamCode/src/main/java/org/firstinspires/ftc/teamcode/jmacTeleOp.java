@@ -134,12 +134,21 @@ public class jmacTeleOp extends LinearOpMode {
         mDrive.FL.setPower(frontRight);
         mDrive.FR.setPower(frontLeft);
 
-        /*
-        telemetry.addData("FL", mDrive.FL.getCurrentPosition());
-        telemetry.addData("FR", mDrive.FR.getCurrentPosition());
-        telemetry.addData("BL", mDrive.BL.getCurrentPosition());
-        telemetry.addData("BR", mDrive.BR.getCurrentPosition());
-        telemetry.update();*/
+
+        telemetry.addData("encoder tick FL", mDrive.FL.getCurrentPosition());
+        telemetry.addData("encoder tick FR", mDrive.FR.getCurrentPosition());
+        telemetry.addData("encoder tick BL", mDrive.BL.getCurrentPosition());
+        telemetry.addData("encoder tick BR", mDrive.BR.getCurrentPosition());
+        telemetry.addData("inches FL", mDrive.FL.getCurrentPosition()/1104.04);
+        telemetry.addData("inches FR", mDrive.FR.getCurrentPosition()/1104.04);
+        telemetry.addData("inches BL", mDrive.BL.getCurrentPosition()/1104.04);
+        telemetry.addData("inches BR", mDrive.BR.getCurrentPosition()/1104.04);
+
+
+        telemetry.update();
+
+
+
         currentState = MANEUVERING;
     }
 
@@ -181,8 +190,8 @@ public class jmacTeleOp extends LinearOpMode {
                 mDrive.FlyWheel2.setPower(0);
         }
 
-        telemetry.addData("vel2", mDrive.FlyWheel2.getVelocity());
-        telemetry.update();
+        //telemetry.addData("vel2", mDrive.FlyWheel2.getVelocity());
+        //telemetry.update();
     }
 
     public void runIntake() {
@@ -203,7 +212,7 @@ public class jmacTeleOp extends LinearOpMode {
          else
              mDrive.Arm.setPower(gamepad2.right_stick_y / 2);
 
-        telemetry.addData("Arm", mDrive.Arm.getCurrentPosition());
+        //telemetry.addData("Arm", mDrive.Arm.getCurrentPosition());
     }
 
     public void runPivot()
