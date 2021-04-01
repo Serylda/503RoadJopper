@@ -83,6 +83,7 @@ public class jmacTeleOp extends LinearOpMode {
          // doVarious();
          //runVoltageLED();
            runRGBPatternSwitch();
+           doPAWGs();
         }
     }
 
@@ -169,8 +170,11 @@ public class jmacTeleOp extends LinearOpMode {
         //mDrive.FlyWheel2.setPower(gamepad2.left_trigger*0.8);
 
 
-        if (gamepad2.right_trigger > 0.4) {
+        if (gamepad2.right_bumper) {
             mDrive.ringHopper.setPosition(0.9);
+           // mDrive.Intake.setPower(-1);
+           // sleep(150);
+           // mDrive.Intake.setPower(0);
             /*
             mDrive.ringHopper.setPosition(1);
             sleep(75);
@@ -181,7 +185,32 @@ public class jmacTeleOp extends LinearOpMode {
         else
             mDrive.ringHopper.setPosition(0.5);
 
-        if (gamepad2.x) {
+        if(gamepad2.right_trigger > 0.2){
+            //shot 1
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(150);
+            //shot 2
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(150);
+            //shot 3
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(150);
+            //shot 4
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(150);
+
+
+        }
+
+        if (gamepad2.left_bumper) {
             mDrive.FlyWheel1.setVelocity(1300 * 13.6 / mDrive.getVoltage());
             mDrive.FlyWheel2.setVelocity(1300 * 13.6 / mDrive.getVoltage());
         }
@@ -223,10 +252,25 @@ public class jmacTeleOp extends LinearOpMode {
 
     public void runServos()
     {
-        if(gamepad2.a)
+        if(gamepad2.x)
             mDrive.claw.setPosition(0.9);
-        else if (gamepad2.b)
+        else if (gamepad2.y)
             mDrive.claw.setPosition(0);
+    }
+
+    public void doPAWGs()
+    {
+        if (gamepad2.dpad_up){
+            mDrive.Intake.setPower(1);
+            sleep(20);
+            mDrive.Intake.setPower(-1);
+            sleep(150);
+            mDrive.Intake.setPower(0);
+
+        }
+
+
+
     }
     public void doVarious()
     {
