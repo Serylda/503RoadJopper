@@ -60,8 +60,8 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(9, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 2;
 
@@ -141,10 +141,10 @@ public class SampleMecanumDrive extends MecanumDrive {
         // upward (normal to the floor) using a command like the following:
         // BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
-        BR = hardwareMap.get(DcMotorEx.class, "M0");
-        FR = hardwareMap.get(DcMotorEx.class, "M1");
-        BL = hardwareMap.get(DcMotorEx.class, "M2");
-        FL = hardwareMap.get(DcMotorEx.class, "M3");
+        BR = hardwareMap.get(DcMotorEx.class, "M2");
+        FR = hardwareMap.get(DcMotorEx.class, "M3");
+        BL = hardwareMap.get(DcMotorEx.class, "M0");
+        FL = hardwareMap.get(DcMotorEx.class, "M1");
 
         motors = Arrays.asList(BR, FR, BL, FL);
 
@@ -166,8 +166,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         // TODO: reverse any motors using DcMotor.setDirection()
 
-        BL.setDirection(DcMotor.Direction.REVERSE);
-        FL.setDirection(DcMotor.Direction.REVERSE);
+        BR.setDirection(DcMotor.Direction.REVERSE);
+        FR.setDirection(DcMotor.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
 
