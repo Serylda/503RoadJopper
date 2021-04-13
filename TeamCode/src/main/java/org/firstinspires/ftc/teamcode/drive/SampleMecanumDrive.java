@@ -32,6 +32,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -96,6 +97,15 @@ public class SampleMecanumDrive extends MecanumDrive {
     private List<DcMotorEx> motors;
     private BNO055IMU imu;
 
+
+    public DcMotor Intake; //Motor 0
+    public DcMotorEx FlyWheel1; //Motor 1
+    public DcMotorEx FlyWheel2; //Motor 2
+    public DcMotor Arm; //Motor 3
+
+    public Servo claw; //0, 1
+    public Servo ringHopper; // intake2; //2, 3
+
     private VoltageSensor batteryVoltageSensor;
 
     private Pose2d lastPoseOnTurn;
@@ -145,6 +155,24 @@ public class SampleMecanumDrive extends MecanumDrive {
         FR = hardwareMap.get(DcMotorEx.class, "M3");
         BL = hardwareMap.get(DcMotorEx.class, "M0");
         FL = hardwareMap.get(DcMotorEx.class, "M1");
+
+        FlyWheel1 = hardwareMap.get(DcMotorEx.class, "FW1");
+        FlyWheel2 = hardwareMap.get(DcMotorEx.class, "FW2");
+        Intake = hardwareMap.get(DcMotor.class, "Intake");
+        Arm = hardwareMap.get(DcMotor.class, "Arm");
+
+        ringHopper = hardwareMap.get(Servo.class, "hopper"); //0
+        claw = hardwareMap.get(Servo.class, "claw"); //1
+
+        FlyWheel1.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        FlyWheel2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        Intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        FlyWheel1.setDirection(DcMotor.Direction.REVERSE);
+        FlyWheel2.setDirection(DcMotor.Direction.REVERSE);
+        Intake.setDirection(DcMotor.Direction.FORWARD);
+        Arm.setDirection(DcMotor.Direction.FORWARD);
 
         motors = Arrays.asList(BR, FR, BL, FL);
 
@@ -423,5 +451,15 @@ public class SampleMecanumDrive extends MecanumDrive {
         // flat on a surface
 
         return (double) imu.getAngularVelocity().zRotationRate;
+    }
+    public double getVoltage()
+    {
+        double result = Double.POSITIVE_INFINITY;
+        //for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = batteryVoltageSensor.getVoltage();
+            if (voltage > 0) {
+                result = Math.min(result, voltage);
+            }
+        return result;
     }
 }
