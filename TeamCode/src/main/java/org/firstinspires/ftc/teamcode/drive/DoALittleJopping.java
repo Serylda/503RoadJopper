@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.drive.Drive;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -38,6 +39,7 @@ public class DoALittleJopping extends LinearOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive.claw.setPosition(0);
 
         drive.setPoseEstimate(startPose);
 
@@ -46,20 +48,25 @@ public class DoALittleJopping extends LinearOpMode {
 
                 .build();
 
-        double turnAngle = Math.toRadians(56);
+        double turnAngle = Math.toRadians(62);
 
         Pose2d newLastPose = wobbleDropOne.end().plus(new Pose2d(0, 0, turnAngle));
 
-        Trajectory wobbleGrab = drive.trajectoryBuilder(newLastPose)
-                .splineTo(new Vector2d(-42, -40), Math.toRadians(88))
+        Trajectory backUp = drive.trajectoryBuilder(newLastPose)
+                .splineTo(new Vector2d(-43, -52), Math.toRadians(0))
+                .build();
+
+
+        Trajectory wobbleGrab = drive.trajectoryBuilder(backUp.end())
+                .splineTo(new Vector2d(-43, -34), Math.toRadians(90))
                 .build();
 
         Trajectory wobbleDropTwo = drive.trajectoryBuilder(wobbleGrab.end())
-                .splineTo(new Vector2d(0, -52), Math.toRadians(319))
+                .splineTo(new Vector2d(-10, -50), Math.toRadians(319))
                 .build();
 
         Trajectory park = drive.trajectoryBuilder(wobbleDropTwo.end())
-                .splineTo(new Vector2d(10, -10), Math.toRadians(0))
+                .splineTo(new Vector2d(0, -30), Math.toRadians(0))
                 .build();
 
 
@@ -72,6 +79,7 @@ public class DoALittleJopping extends LinearOpMode {
         if (isStopRequested()) return;
 
         currentState = State.TRAJECTORY_1;
+        drive.claw.setPosition(0);
         drive.followTrajectoryAsync(wobbleDropOne);
 
         while (opModeIsActive() && !isStopRequested()) {
@@ -80,7 +88,8 @@ public class DoALittleJopping extends LinearOpMode {
 
                     if(!drive.isBusy()){
                         currentState = State.DROP;
-
+                        drive.waitTimer.reset();
+                        drive.wobbleDrop();
 
                     }
                     break;
@@ -110,6 +119,7 @@ public class DoALittleJopping extends LinearOpMode {
                     if (drive.waitTimer.milliseconds() > 1900){
                         currentState = State.TRAJ_2;
 
+                        drive.followTrajectoryAsync(backUp);
                         drive.followTrajectoryAsync(wobbleGrab);
                     }
                     break;
@@ -117,12 +127,29 @@ public class DoALittleJopping extends LinearOpMode {
                 case TRAJ_2:
 
                     if (!drive.isBusy()){
-                        currentState = State.DROP_2;
-
-                        drive.followTrajectoryAsync(wobbleDropTwo);
+                        currentState = State.GRAB;
+                        drive.waitTimer.reset();
+                        drive.wobbleGrab();
                     }
                     break;
 
+                case GRAB:
+                    if(!drive.isBusy()){
+                        currentState = State.TRAJ_3;
+
+
+
+                        drive.followTrajectoryAsync(wobbleDropTwo);
+                    }
+
+                case TRAJ_3:
+                    if(!drive.isBusy()){
+                        currentState = State.DROP_2;
+                        drive.waitTimer.reset();
+                        drive.wobbleDrop2();
+
+
+                    }
                 case DROP_2:
 
                     if (!drive.isBusy()){

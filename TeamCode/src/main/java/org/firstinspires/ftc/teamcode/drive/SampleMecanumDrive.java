@@ -468,103 +468,157 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     public void shoot() {
-        waitTimer.reset();
+
 
 
 
         FlyWheel1.setVelocity(1500 * 13.5 / getVoltage());
         FlyWheel2.setVelocity(1500 * 13.5 / getVoltage());
+        waitTimer.reset();
+
+        while(waitTimer.milliseconds() < 1900){
+            if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
+                ringHopper.setPosition(0.9);
 
 
 
-        if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
-            ringHopper.setPosition(0.9);
+
+            }
+            if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
+                ringHopper.setPosition(0.5);
+
+            }
+            if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
+                ringHopper.setPosition(0.9);
 
 
 
-
-        }
-        if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
-            ringHopper.setPosition(0.5);
-
-        }
-        if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
-            ringHopper.setPosition(0.9);
+            }
+            if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
+                ringHopper.setPosition(0.5);
 
 
 
-        }
-        if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
-            ringHopper.setPosition(0.5);
+            }
+            if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
+                ringHopper.setPosition(0.9);
 
 
 
-        }
-        if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
-            ringHopper.setPosition(0.9);
+            }
+            if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
+                ringHopper.setPosition(0.5);
 
 
 
-        }
-        if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
-            ringHopper.setPosition(0.5);
+            }
+            if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1600){
+                ringHopper.setPosition(0.9);
+            }
+            if (waitTimer.milliseconds() >= 1600 && waitTimer.milliseconds() < 1850){
+                ringHopper.setPosition(0.5);
 
 
+            }
+            if (waitTimer.milliseconds() > 1850){
+                FlyWheel1.setVelocity(0);
+                FlyWheel2.setVelocity(0);
 
-        }
-        if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1600){
-            ringHopper.setPosition(0.9);
-        }
-        if (waitTimer.milliseconds() >= 1600 && waitTimer.milliseconds() < 1850){
-            ringHopper.setPosition(0.5);
+            }
 
 
-        }
-        if (waitTimer.milliseconds() > 1850){
-            FlyWheel1.setVelocity(0);
-            FlyWheel2.setVelocity(0);
 
         }
 
 
     }
 
-    public void wobbleDrop1 () {
-        double wait150 = 150;
+    public void wobbleDrop () {
+        Arm.setPower(-0.35);
+        waitTimer.reset();
 
-        double wait200 = 200;
+        while(waitTimer.milliseconds() < 850){
 
-        double wait250 = 250;
+            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 750){
 
-        double wait300 = 300;
+                Arm.setPower(0);
 
-        double wait350 = 350;
 
-        double wait400 = 400;
+            }
+            if(waitTimer.milliseconds() >= 750 && waitTimer.milliseconds() < 950){
 
-        double wait500 = 500;
+                claw.setPosition(1);
 
-        ElapsedTime waitTimer = new ElapsedTime();
+            }
+
+        }
+
+
 
     }
 
-    public void wobbleDrop2 ()
+    public void wobbleGrab ()
     {
-        double wait150 = 150;
 
-        double wait200 = 200;
 
-        double wait250 = 250;
+        waitTimer.reset();
 
-        double wait300 = 300;
+        while(waitTimer.milliseconds() < 800){
 
-        double wait350 = 350;
+            if(waitTimer.milliseconds() >= 250){
+                claw.setPosition(0);
 
-        double wait400 = 400;
+            }
 
-        double wait500 = 500;
+            if (waitTimer.milliseconds() >= 450){
 
-        ElapsedTime waitTimer = new ElapsedTime();
+                Arm.setPower(0.5);
+
+            }
+            if(waitTimer.milliseconds() >= 750){
+
+                Arm.setPower(0);
+
+            }
+
+
+        }
+
+
+
+    }
+    public void wobbleDrop2 () {
+        Arm.setPower(-0.35);
+        waitTimer.reset();
+
+        while(waitTimer.milliseconds() < 850){
+
+            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 750){
+
+                Arm.setPower(0);
+
+
+            }
+            if(waitTimer.milliseconds() >= 750 && waitTimer.milliseconds() < 850){
+
+                claw.setPosition(1);
+
+
+            }
+            if (waitTimer.milliseconds() >= 900 && waitTimer.milliseconds() < 1300){
+
+                Arm.setPower(0.5);
+            }
+
+            if(waitTimer.milliseconds() >= 1300){
+
+                Arm.setPower(0);
+
+
+            }
+
+        }
+
 
 
     }

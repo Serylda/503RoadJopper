@@ -77,7 +77,12 @@ public class diagnostic extends LinearOpMode {
         while (opModeIsActive())
         {
             telemetry();
+            if(gamepad1.a){
+                runFlyWheel();
 
+            }
+            telemetry.addData("elapsed time", waitTimer.milliseconds());
+            telemetry.update();
 
         }
     }
@@ -87,7 +92,7 @@ public class diagnostic extends LinearOpMode {
 
 
 
-     runFlyWheel();
+
 
     }
 
@@ -103,55 +108,59 @@ public class diagnostic extends LinearOpMode {
                 telemetry.addData("elapsed time", waitTimer.milliseconds());
                 telemetry.update();
 
-                mDrive.FlyWheel1.setVelocity(1500 * 13.5 / mDrive.getVoltage());
-                mDrive.FlyWheel2.setVelocity(1500 * 13.5 / mDrive.getVoltage());
-                if (gamepad1.a){
+             //  mDrive.FlyWheel1.setVelocity(1500 * 13.5 / mDrive.getVoltage());
+             //  mDrive.FlyWheel2.setVelocity(1500 * 13.5 / mDrive.getVoltage());
 
-                    waitTimer.reset();
+               waitTimer.reset();
+
+
+
+                while (waitTimer.milliseconds() < 1500){
+
+                    if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
+                        mDrive.ringHopper.setPosition(0.9);
+
+
+
+                    }
+                    if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
+                        mDrive.ringHopper.setPosition(0.5);
+
+                    }
+                    if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
+                        mDrive.ringHopper.setPosition(0.9);
+
+
+
+                    }
+                    if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
+                        mDrive.ringHopper.setPosition(0.5);
+
+
+
+                    }
+                    if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
+                        mDrive.ringHopper.setPosition(0.9);
+
+
+
+                    }
+                    if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
+                        mDrive.ringHopper.setPosition(0.5);
+
+
+
+
+                    }
+                    if (waitTimer.milliseconds() >= 1450){
+                        mDrive.FlyWheel1.setVelocity(0);
+                        mDrive.FlyWheel2.setVelocity(0);
+
+                    }
+
+
                 }
 
-
-
-
-                if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
-                    mDrive.ringHopper.setPosition(0.9);
-
-
-
-                }
-                if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
-                    mDrive.ringHopper.setPosition(0.5);
-
-                }
-                if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
-                    mDrive.ringHopper.setPosition(0.9);
-
-
-
-                }
-                if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
-                    mDrive.ringHopper.setPosition(0.5);
-
-
-
-                }
-                if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
-                    mDrive.ringHopper.setPosition(0.9);
-
-
-
-                }
-                if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
-                    mDrive.ringHopper.setPosition(0.5);
-
-
-
-                }
-                if (waitTimer.milliseconds() >= 1450){
-                   // mDrive.FlyWheel1.setVelocity(0);
-                    //mDrive.FlyWheel2.setVelocity(0);
-
-                }
             }
 
 
@@ -162,10 +171,6 @@ public class diagnostic extends LinearOpMode {
 
 
         ElapsedTime clock = new ElapsedTime();
-        double wait200 = 200;
-        double wait250 = 250;
-        double wait300 = 300;
-        double wait350 = 350;
 
         if (gamepad2.b == true){
             clock.reset();
