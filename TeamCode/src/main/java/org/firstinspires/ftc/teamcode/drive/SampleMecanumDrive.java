@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
@@ -80,7 +81,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private FtcDashboard dashboard;
     private NanoClock clock;
-
+    ElapsedTime waitTimer = new ElapsedTime();
     private Mode mode;
 
     private PIDFController turnController;
@@ -175,6 +176,9 @@ public class SampleMecanumDrive extends MecanumDrive {
         Arm.setDirection(DcMotor.Direction.FORWARD);
 
         motors = Arrays.asList(BR, FR, BL, FL);
+        FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+        FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
+
 
         for (DcMotorEx motor : motors) {
             MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
@@ -452,14 +456,117 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         return (double) imu.getAngularVelocity().zRotationRate;
     }
-    public double getVoltage()
-    {
+
+    public double getVoltage() {
         double result = Double.POSITIVE_INFINITY;
         //for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = batteryVoltageSensor.getVoltage();
-            if (voltage > 0) {
-                result = Math.min(result, voltage);
-            }
+        double voltage = batteryVoltageSensor.getVoltage();
+        if (voltage > 0) {
+            result = Math.min(result, voltage);
+        }
         return result;
     }
+
+    public void shoot() {
+        waitTimer.reset();
+
+
+
+        FlyWheel1.setVelocity(1500 * 13.5 / getVoltage());
+        FlyWheel2.setVelocity(1500 * 13.5 / getVoltage());
+
+
+
+        if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
+            ringHopper.setPosition(0.9);
+
+
+
+
+        }
+        if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
+            ringHopper.setPosition(0.5);
+
+        }
+        if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
+            ringHopper.setPosition(0.9);
+
+
+
+        }
+        if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
+            ringHopper.setPosition(0.5);
+
+
+
+        }
+        if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
+            ringHopper.setPosition(0.9);
+
+
+
+        }
+        if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
+            ringHopper.setPosition(0.5);
+
+
+
+        }
+        if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1600){
+            ringHopper.setPosition(0.9);
+        }
+        if (waitTimer.milliseconds() >= 1600 && waitTimer.milliseconds() < 1850){
+            ringHopper.setPosition(0.5);
+
+
+        }
+        if (waitTimer.milliseconds() > 1850){
+            FlyWheel1.setVelocity(0);
+            FlyWheel2.setVelocity(0);
+
+        }
+
+
+    }
+
+    public void wobbleDrop1 () {
+        double wait150 = 150;
+
+        double wait200 = 200;
+
+        double wait250 = 250;
+
+        double wait300 = 300;
+
+        double wait350 = 350;
+
+        double wait400 = 400;
+
+        double wait500 = 500;
+
+        ElapsedTime waitTimer = new ElapsedTime();
+
+    }
+
+    public void wobbleDrop2 ()
+    {
+        double wait150 = 150;
+
+        double wait200 = 200;
+
+        double wait250 = 250;
+
+        double wait300 = 300;
+
+        double wait350 = 350;
+
+        double wait400 = 400;
+
+        double wait500 = 500;
+
+        ElapsedTime waitTimer = new ElapsedTime();
+
+
+    }
+
 }
