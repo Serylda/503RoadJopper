@@ -537,7 +537,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         Arm.setPower(-0.35);
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 850){
+        while(waitTimer.milliseconds() < 1300){
 
             if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 750){
 
@@ -563,19 +563,19 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 800){
+        while(waitTimer.milliseconds() < 1350){
 
-            if(waitTimer.milliseconds() >= 250){
+            if(waitTimer.milliseconds() >= 350){
                 claw.setPosition(0);
 
             }
 
-            if (waitTimer.milliseconds() >= 450){
+            if (waitTimer.milliseconds() >= 950){
 
-                Arm.setPower(0.5);
+                Arm.setPower(0.4);
 
             }
-            if(waitTimer.milliseconds() >= 750){
+            if(waitTimer.milliseconds() >= 1200){
 
                 Arm.setPower(0);
 
@@ -591,33 +591,28 @@ public class SampleMecanumDrive extends MecanumDrive {
         Arm.setPower(-0.35);
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 850){
+        while(waitTimer.milliseconds() < 1200){
 
-            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 750){
+            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 650){
 
                 Arm.setPower(0);
 
 
             }
-            if(waitTimer.milliseconds() >= 750 && waitTimer.milliseconds() < 850){
+            if(waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 900){
 
                 claw.setPosition(1);
 
 
             }
+            /*
             if (waitTimer.milliseconds() >= 900 && waitTimer.milliseconds() < 1300){
 
                 Arm.setPower(0.5);
-            }
-
-            if(waitTimer.milliseconds() >= 1300){
-
-                Arm.setPower(0);
-
-
-            }
+            }*/
 
         }
+        Arm.setPower(0);
 
 
 

@@ -78,50 +78,69 @@ public class DoALittleJopping extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory wobbleDropOne = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(0, -52), Math.toRadians(319))
+                .splineTo(new Vector2d(0, -54), Math.toRadians(319))
 
                 .build();
 
-        double turnAngle = Math.toRadians(62);
+        double turnAngle = Math.toRadians(56.5);
 
         Pose2d newLastPose = wobbleDropOne.end().plus(new Pose2d(0, 0, turnAngle));
 
 
 
         Trajectory backUp = drive.trajectoryBuilder(newLastPose)
-                .splineTo(new Vector2d(-43, -52), Math.toRadians(0))
+                .splineTo(new Vector2d(-43.5, -52), Math.toRadians(0))
                 .build();
 
 
         Trajectory wobbleGrab = drive.trajectoryBuilder(backUp.end())
-                .splineTo(new Vector2d(-43, -34), Math.toRadians(90))
+                .splineTo(new Vector2d(-41, -34), Math.toRadians(94))
                 .build();
 
         Trajectory wobbleDropTwo = drive.trajectoryBuilder(wobbleGrab.end())
-                .splineTo(new Vector2d(-10, -50), Math.toRadians(319))
+                .splineTo(new Vector2d(-5, -54), Math.toRadians(350))
                 .build();
 
-        Trajectory park = drive.trajectoryBuilder(wobbleDropTwo.end())
-                .splineTo(new Vector2d(0, -30), Math.toRadians(0))
+        Trajectory strafe = drive.trajectoryBuilder(wobbleDropTwo.end())
+                .strafeLeft(25)
+                //.splineTo(new Vector2d(-8, -30), Math.toRadians(319))
+                //.splineTo(new Vector2d(15, 0), Math.toRadians(0))
+                //.splineTo(new Vector2d(15, -30), Math.toRadians(0))
+                .build();
+
+
+        Trajectory park = drive.trajectoryBuilder(strafe.end())
+                .forward(10)
                 .build();
 
         Trajectory case4WobbleOne = drive.trajectoryBuilder(newLastPose)
-                .splineTo(new Vector2d(52, -52), Math.toRadians(319))
+                .splineTo(new Vector2d(52, -52), Math.toRadians(-41))
                 .build();
+
+        Trajectory case4back1 = drive.trajectoryBuilder(case4WobbleOne.end())
+                .back(40)
+                .build();
+
+        Trajectory beruh = drive.trajectoryBuilder(case4back1.end())
+                .splineTo(new Vector2d(0, -52), Math.toRadians(319)) //0,-52, 319/0
+                .build();
+
+
 
         Trajectory case4WobbleTwo = drive.trajectoryBuilder(wobbleGrab.end())
-                .splineTo(new Vector2d(45, -52), Math.toRadians(319))
+                .splineTo(new Vector2d(45, -52), Math.toRadians(-41))
                 .build();
 
-        Trajectory beruh = drive.trajectoryBuilder(case4WobbleOne.end())
-                .splineTo(new Vector2d(0, -52), Math.toRadians(319))
+        Trajectory case4back2 = drive.trajectoryBuilder(case4WobbleTwo.end())
+                .back(40)
                 .build();
 
 
-
-        Trajectory case4park = drive.trajectoryBuilder(case4WobbleTwo.end())
+        Trajectory case4park = drive.trajectoryBuilder(case4back2.end())
                 .splineTo(new Vector2d( 10, -30), Math.toRadians(0))
                 .build();
+
+
 
         Trajectory case1Traj1 = drive.trajectoryBuilder(startPose)
                 .splineTo(new Vector2d(18.7, -38.4), 0)
@@ -152,7 +171,7 @@ public class DoALittleJopping extends LinearOpMode {
         drive.claw.setPosition(0);
         drive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
         drive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
-        int ringCount = 1;
+        int ringCount = 4;
         telemetry.addData("Ring Count: ", ringCount);
         telemetry.update();
 
@@ -232,12 +251,16 @@ public class DoALittleJopping extends LinearOpMode {
                                 drive.wobbleDrop2();
 
 
+
                             }
                         case DROP_2:
 
                             if (!drive.isBusy()){
+                                drive.waitTimer.reset();
+                                //drive.wobbleGrab();
                                 currentState = State.PARK;
 
+                                drive.followTrajectoryAsync(strafe);
                                 drive.followTrajectoryAsync(park);
                             }
                             break;
@@ -424,6 +447,7 @@ public class DoALittleJopping extends LinearOpMode {
 
                             if (!drive.isBusy()){
                                 currentState4 = State4.TURN_2;
+                                drive.followTrajectoryAsync(case4back1);
                                 drive.followTrajectoryAsync(beruh);
                                 telemetry.addLine("yo what's popping");
                                 telemetry.update();
@@ -481,7 +505,7 @@ public class DoALittleJopping extends LinearOpMode {
 
                             if (!drive.isBusy()){
                                 currentState4 = State4.PARK;
-
+                                drive.followTrajectoryAsync(case4back2);
                                 drive.followTrajectoryAsync(case4park);
                             }
                             break;
