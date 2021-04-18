@@ -44,15 +44,21 @@ public class DoALittleJopping extends LinearOpMode {
         PARK, // park
         IDLE, // idle
         TRAJ_5,
-        TURN_2
+        TURN_2,
+        TURN_3,
+        TURN_4
     }
 
-    enum State1{
+    enum State1 {
         TRAJECTORY_1,
         DROP,
         BACK,
         SHOOT,
-        TRAJ_2,
+        SHOOTPOS,
+        TURN,
+        TURNBACK,
+        BACK_2,
+        WOBBLE,
         GRAB,
         TRAJ_3,
         DROP_2,
@@ -66,26 +72,26 @@ public class DoALittleJopping extends LinearOpMode {
     Pose2d startPose = new Pose2d(-62, -45, Math.toRadians(0));
 
 
-
     @Override
     public void runOpMode() throws InterruptedException {
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Vision vision = new Vision(this);
+        int ringCount = vision.ringCount('r');
+        telemetry.addData("Ring Count: ", ringCount);
+        telemetry.update();
         drive.claw.setPosition(0);
 
         drive.setPoseEstimate(startPose);
 
         Trajectory wobbleDropOne = drive.trajectoryBuilder(startPose)
                 .splineTo(new Vector2d(0, -54), Math.toRadians(319))
-
                 .build();
 
-        double turnAngle = Math.toRadians(56.5);
+        double turnAngle = Math.toRadians(58);
 
         Pose2d newLastPose = wobbleDropOne.end().plus(new Pose2d(0, 0, turnAngle));
-
 
 
         Trajectory backUp = drive.trajectoryBuilder(newLastPose)
@@ -114,434 +120,501 @@ public class DoALittleJopping extends LinearOpMode {
                 .build();
 
         Trajectory case4WobbleOne = drive.trajectoryBuilder(newLastPose)
-                .splineTo(new Vector2d(52, -52), Math.toRadians(-41))
+                .splineTo(new Vector2d(52, -54), Math.toRadians(319))
                 .build();
 
-        Trajectory case4back1 = drive.trajectoryBuilder(case4WobbleOne.end())
+
+        double case4turn1 = Math.toRadians(41);
+
+        Pose2d case4Turn1Pose = case4WobbleOne.end().plus(new Pose2d(0, 0, case4turn1));
+
+        /*Trajectory case4back1 = drive.trajectoryBuilder(case4WobbleOne.end())
                 .back(40)
-                .build();
+                .build();*/
 
-        Trajectory beruh = drive.trajectoryBuilder(case4back1.end())
-                .splineTo(new Vector2d(0, -52), Math.toRadians(319)) //0,-52, 319/0
+        Trajectory beruh = drive.trajectoryBuilder(case4Turn1Pose)
+                .lineToLinearHeading(new Pose2d(0, -54, Math.toRadians(0))) //0,-52, 319/0
                 .build();
-
 
 
         Trajectory case4WobbleTwo = drive.trajectoryBuilder(wobbleGrab.end())
-                .splineTo(new Vector2d(45, -52), Math.toRadians(-41))
+                .splineTo(new Vector2d(45, -52), Math.toRadians(330))
                 .build();
 
-        Trajectory case4back2 = drive.trajectoryBuilder(case4WobbleTwo.end())
+        /*Trajectory case4back2 = drive.trajectoryBuilder(case4WobbleTwo.end())
                 .back(40)
-                .build();
+                .build();*/
+
+        double case4turn2 = Math.toRadians(30);
+
+        Pose2d case4Turn2Pose = wobbleDropOne.end().plus(new Pose2d(0, 0, case4turn2));
 
 
-        Trajectory case4park = drive.trajectoryBuilder(case4back2.end())
-                .splineTo(new Vector2d( 10, -30), Math.toRadians(0))
-                .build();
-
-
-
-        Trajectory case1Traj1 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(18.7, -38.4), 0)
-                .build();
-
-        Trajectory case1Back = drive.trajectoryBuilder(case1Traj1.end())
-                .splineTo(new Vector2d(-3.2, -34.6), 348)
-                .build();
-
-        Trajectory case1Traj2 = drive.trajectoryBuilder(case1Back.end())
-                .splineTo(new Vector2d(-44, -40), 85.6)
-                .build();
-
-        Trajectory case1Traj3 = drive.trajectoryBuilder(case1Traj2.end())
-                .splineTo(new Vector2d(14, -38), 0)
+        Trajectory case4park = drive.trajectoryBuilder(case4Turn2Pose)
+                .splineTo(new Vector2d(10, -30), Math.toRadians(0))
                 .build();
 
 
 
 
+        Trajectory drop1c1 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(20, -41), 0)
+                .build();
 
+        Trajectory back1c1 = drive.trajectoryBuilder(drop1c1.end())
+                .lineTo(new Vector2d(-10, -41))
+                .build();
 
+        Trajectory shootPos = drive.trajectoryBuilder(back1c1.end())
+                .splineTo(new Vector2d(0, -54), Math.toRadians(17.5))
+                .build();
 
+        /*
+        double shootTurnc1 = Math.toRadians(17.5);
 
+        Pose2d shootTurnPosec1 = case4WobbleOne.end().plus(new Pose2d(0, 0, shootTurnc1));
 
-        waitForStart();
+        */
+        double shootTurnBackc1 = Math.toRadians(-17.5);
 
-        drive.claw.setPosition(0);
-        drive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
-        drive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
-        int ringCount = 4;
-        telemetry.addData("Ring Count: ", ringCount);
-        telemetry.update();
+        Pose2d shootTurnPose2c1 = case4WobbleOne.end().plus(new Pose2d(0, 0, shootTurnBackc1));
 
-        if (isStopRequested()) return;
+        Trajectory back2c1 = drive.trajectoryBuilder(shootTurnPose2c1)
+                .lineToLinearHeading(new Pose2d(-43.5, -52, Math.toRadians(180))) //ctor2d(-43.5, -52), Math.toRadians(90))
+                .build();
 
-        switch (ringCount){
+        Trajectory wobbleGrabc1 = drive.trajectoryBuilder(back2c1.end())
+                .lineToLinearHeading(new Pose2d(-42, -34, Math.toRadians(94)))
+                .build();
 
-            case 0:
-                currentState = State.TRAJECTORY_1;
-                drive.claw.setPosition(0);
-                drive.followTrajectoryAsync(wobbleDropOne);
+        Trajectory drop2c1 = drive.trajectoryBuilder(wobbleGrabc1.end())
+                .lineToConstantHeading(new Vector2d(17, -37))
+                .build();
 
-                while (opModeIsActive() && !isStopRequested()) {
-                    switch (currentState) {
-                        case TRAJECTORY_1:
 
-                            if(!drive.isBusy()){
-                                currentState = State.DROP;
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop();
-
-                            }
-                            break;
-
-                        case DROP:
-
-                            if (!drive.isBusy()){
-                                currentState = State.TURN;
-
-                                drive.turnAsync(turnAngle);
-                            }
-                            break;
-
-                        case TURN:
-
-                            if (!drive.isBusy()){
-                                currentState = State.SHOOT;
-                                drive.waitTimer.reset();
-                                drive.shoot();
-
-
-                            }
-                            break;
-
-                        case SHOOT:
-
-                            if (drive.waitTimer.milliseconds() > 1900){
-                                currentState = State.TRAJ_2;
-
-                                drive.followTrajectoryAsync(backUp);
-                                drive.followTrajectoryAsync(wobbleGrab);
-                            }
-                            break;
-
-                        case TRAJ_2:
-
-                            if (!drive.isBusy()){
-                                currentState = State.GRAB;
-                                drive.waitTimer.reset();
-                                drive.wobbleGrab();
-                            }
-                            break;
-
-                        case GRAB:
-                            if(!drive.isBusy()){
-                                currentState = State.TRAJ_3;
-
-
-
-                                drive.followTrajectoryAsync(wobbleDropTwo);
-                            }
-
-                        case TRAJ_3:
-                            if(!drive.isBusy()){
-                                currentState = State.DROP_2;
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop2();
-
-
-
-                            }
-                        case DROP_2:
-
-                            if (!drive.isBusy()){
-                                drive.waitTimer.reset();
-                                //drive.wobbleGrab();
-                                currentState = State.PARK;
-
-                                drive.followTrajectoryAsync(strafe);
-                                drive.followTrajectoryAsync(park);
-                            }
-                            break;
-
-                        case PARK:
-
-                            if (!drive.isBusy()){
-                                currentState = State.IDLE;
-
-
-                            }
-                            break;
-                        case IDLE:
-
-                            break;
-                    }
-
-                    drive.update();
-                    Pose2d poseEstimate = drive.getPoseEstimate();
-
-
-
-                    // Print pose to telemetry
-                    telemetry.addData("x", poseEstimate.getX());
-                    telemetry.addData("y", poseEstimate.getY());
-                    telemetry.addData("heading", poseEstimate.getHeading());
-                    telemetry.update();
-
-
-                }
-                break;
-
-
-
-            case 1:
-                currentState1 = State1.TRAJECTORY_1;
-                drive.claw.setPosition(0);
-                drive.followTrajectoryAsync(case1Traj1);
-
-                while (opModeIsActive() && !isStopRequested()) {
-                    switch (currentState1) {
-                        case TRAJECTORY_1:
-
-                            if(!drive.isBusy()){
-                                currentState1 = State1.DROP;
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop();
-
-                            }
-                            break;
-
-                        case DROP:
-
-                            if (!drive.isBusy()){
-                                currentState1 = State1.BACK;
-
-                                drive.followTrajectoryAsync(case1Back);
-                            }
-                            break;
-
-                        case BACK:
-
-                            if (!drive.isBusy()){
-                                currentState1 = State1.SHOOT;
-                                drive.waitTimer.reset();
-                                drive.shoot();
-
-
-                            }
-                            break;
-
-                        case SHOOT:
-
-                            if (!drive.isBusy()){
-                                currentState1 = State1.TRAJ_2;
-
-                                drive.followTrajectoryAsync(case1Traj2);
-                            }
-                            break;
-
-                        case TRAJ_2:
-
-                            if (!drive.isBusy()){
-                                currentState1 = State1.GRAB;
-                                drive.waitTimer.reset();
-                                drive.wobbleGrab();
-                            }
-                            break;
-
-                        case GRAB:
-                            if(!drive.isBusy()){
-                                currentState1 = State1.TRAJ_3;
-
-
-
-                                drive.followTrajectoryAsync(case1Traj3);
-                            }
-
-                        case TRAJ_3:
-                            if(!drive.isBusy()){
-                                currentState1 = State1.DROP_2;
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop2();
-
-
-                            }
-                        case DROP_2:
-
-                            if (!drive.isBusy()){
-                                currentState1 = State1.IDLE;
-
-
-                            }
-                            break;
-
-
-                        case IDLE:
-
-                            break;
-                    }
-
-                    drive.update();
-                    Pose2d poseEstimate = drive.getPoseEstimate();
-
-
-
-                    // Print pose to telemetry
-                    telemetry.addData("x", poseEstimate.getX());
-                    telemetry.addData("y", poseEstimate.getY());
-                    telemetry.addData("heading", poseEstimate.getHeading());
-                    telemetry.update();
-
-
-                }
-
-                break;
-
-            case 4:
-                currentState4 = State4.TRAJECTORY_1;
-                drive.claw.setPosition(0);
-                drive.followTrajectoryAsync(wobbleDropOne);
-
-                while (opModeIsActive() && !isStopRequested()) {
-                    switch (currentState4) {
-                        case TRAJECTORY_1:
-
-                            if(!drive.isBusy()){
-                                currentState4 = State4.TURN;
-                                drive.turnAsync(turnAngle);
-
-                            }
-                            break;
-
-                        case TURN:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.SHOOT;
-                                drive.waitTimer.reset();
-                                drive.shoot();
-
-                            }
-                            break;
-
-                        case SHOOT:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.TRAJ_2;
-
-                                drive.followTrajectoryAsync(case4WobbleOne);
-
-                            }
-                            break;
-
-                        case TRAJ_2:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.DROP;
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop();
-                            }
-                            break;
-
-                        case DROP:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.TURN_2;
-                                drive.followTrajectoryAsync(case4back1);
-                                drive.followTrajectoryAsync(beruh);
-                                telemetry.addLine("yo what's popping");
-                                telemetry.update();
-
-
-
-                            }
-                            break;
-
-                        case TURN_2:
-
-                            if(!drive.isBusy()){
-                                currentState4 = State4.TRAJ_3;
-                                drive.turnAsync(turnAngle);
-                                telemetry.addLine("I hate my wife");
-                                telemetry.update();
-
-
-                            }
-
-                        case TRAJ_3:
-                            if(!drive.isBusy()){
-                                currentState4 = State4.TRAJ_4;
-
-                                drive.followTrajectoryAsync(backUp);
-                                drive.followTrajectoryAsync(wobbleGrab);
-                            }
-                            break;
-
-                        case TRAJ_4:
-                            if(!drive.isBusy()){
-                                currentState4 = State4.GRAB;
-                                drive.waitTimer.reset();
-                                drive.wobbleGrab();
-                            }
-
-                        case GRAB:
-                            if(!drive.isBusy()){
-                                currentState4 = State4.TRAJ_5;
-
-                                drive.followTrajectoryAsync(case4WobbleTwo);
-
-                            }
-                        case TRAJ_5:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.DROP_2;
-
-                                drive.waitTimer.reset();
-                                drive.wobbleDrop2();
-                            }
-                            break;
-
-                        case DROP_2:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.PARK;
-                                drive.followTrajectoryAsync(case4back2);
-                                drive.followTrajectoryAsync(case4park);
-                            }
-                            break;
-
-                        case PARK:
-
-                            if (!drive.isBusy()){
-                                currentState4 = State4.IDLE;
-
-
-                        }
-                        case IDLE:
-
-                            break;
-                    }
-
-                    drive.update();
-                    Pose2d poseEstimate = drive.getPoseEstimate();
-
-
-
-                    // Print pose to telemetry
-                    telemetry.addData("x", poseEstimate.getX());
-                    telemetry.addData("y", poseEstimate.getY());
-                    telemetry.addData("heading", poseEstimate.getHeading());
-                    telemetry.update();
-
-
-                }
-
-
-                break;
+        while (!isStarted()) {
+            drive.claw.setPosition(0);
+            //drive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+            //drive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
+            ringCount = vision.ringCount('r');
+            telemetry.addData("Ring Count: ", ringCount);
+            telemetry.update();
         }
 
 
+            waitForStart();
 
-    }
+            drive.claw.setPosition(0);
+            //drive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+            //drive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
+
+            if (isStopRequested()) return;
+
+            switch (ringCount) {
+
+                case 0:
+                    currentState = State.TRAJECTORY_1;
+                    drive.claw.setPosition(0);
+                    drive.followTrajectoryAsync(wobbleDropOne);
+
+                    while (opModeIsActive() && !isStopRequested()) {
+                        switch (currentState) {
+                            case TRAJECTORY_1:
+
+                                if (!drive.isBusy()) {
+                                    currentState = State.DROP;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop();
+
+                                }
+                                break;
+
+                            case DROP:
+
+                                if (!drive.isBusy()) {
+                                    currentState = State.TURN;
+
+                                    drive.turnAsync(turnAngle);
+                                }
+                                break;
+
+                            case TURN:
+
+                                if (!drive.isBusy()) {
+                                    currentState = State.SHOOT;
+                                    drive.waitTimer.reset();
+                                    drive.shoot();
+
+
+                                }
+                                break;
+
+                            case SHOOT:
+
+                                if (drive.waitTimer.milliseconds() > 1900) {
+                                    currentState = State.TRAJ_2;
+
+                                    drive.followTrajectoryAsync(backUp);
+                                    drive.followTrajectoryAsync(wobbleGrab);
+                                }
+                                break;
+
+                            case TRAJ_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState = State.GRAB;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleGrab();
+                                }
+                                break;
+
+                            case GRAB:
+                                if (!drive.isBusy()) {
+                                    currentState = State.TRAJ_3;
+
+
+                                    drive.followTrajectoryAsync(wobbleDropTwo);
+                                }
+
+                            case TRAJ_3:
+                                if (!drive.isBusy()) {
+                                    currentState = State.DROP_2;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop2();
+
+
+                                }
+                            case DROP_2:
+
+                                if (!drive.isBusy()) {
+                                    drive.waitTimer.reset();
+                                    //drive.wobbleGrab();
+                                    currentState = State.PARK;
+
+                                    drive.followTrajectoryAsync(strafe);
+                                    drive.followTrajectoryAsync(park);
+                                }
+                                break;
+
+                            case PARK:
+
+                                if (!drive.isBusy()) {
+                                    currentState = State.IDLE;
+
+
+                                }
+                                break;
+                            case IDLE:
+
+                                break;
+                        }
+
+                        drive.update();
+                        Pose2d poseEstimate = drive.getPoseEstimate();
+
+
+                        // Print pose to telemetry
+                        telemetry.addData("x", poseEstimate.getX());
+                        telemetry.addData("y", poseEstimate.getY());
+                        telemetry.addData("heading", poseEstimate.getHeading());
+                        telemetry.update();
+
+
+                    }
+                    break;
+
+
+                case 1:
+                    currentState1 = State1.TRAJECTORY_1;
+                    drive.claw.setPosition(0);
+                    drive.followTrajectoryAsync(drop1c1);
+
+                    while (opModeIsActive() && !isStopRequested()) {
+                        switch (currentState1) {
+                            case TRAJECTORY_1:
+
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.DROP;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop();
+
+                                }
+                                break;
+
+                            case DROP:
+
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.BACK;
+
+                                    drive.followTrajectoryAsync(back1c1);
+                                }
+                                break;
+
+                            case BACK:
+
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.SHOOTPOS;
+                                    drive.followTrajectoryAsync(shootPos);
+
+                                }
+                                break;
+
+                            case SHOOTPOS:
+                                /*
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.TURN;
+
+                                    drive.turnAsync(shootTurnc1);
+
+                                }
+                                break;
+
+                            case TURN:*/
+                                if(!drive.isBusy()){
+                                    currentState1 = State1.SHOOT;
+                                    drive.waitTimer.reset();
+                                    drive.shoot();
+
+                                }
+                                break;
+                            case SHOOT:
+                                if(!drive.isBusy()){
+                                    currentState1 = State1.TURNBACK;
+                                    drive.turnAsync(shootTurnBackc1);
+                                }
+                                break;
+
+                            case TURNBACK:
+                                if(!drive.isBusy()){
+                                    currentState1 = State1.BACK_2;
+                                    drive.followTrajectoryAsync(back2c1);
+
+                                }
+                                break;
+
+
+
+                            case BACK_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.WOBBLE;
+                                    drive.followTrajectoryAsync(wobbleGrabc1);
+                                }
+                                break;
+
+                            case WOBBLE:
+
+                                if(!drive.isBusy()){
+                                    currentState1 = State1.GRAB;
+
+                                    drive.waitTimer.reset();
+                                    drive.wobbleGrab();
+
+                                }
+
+                            case GRAB:
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.TRAJ_3;
+
+
+                                    drive.followTrajectoryAsync(drop2c1);
+                                }
+
+                            case TRAJ_3:
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.DROP_2;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop2();
+
+
+                                }
+                            case DROP_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState1 = State1.IDLE;
+
+
+                                }
+                                break;
+
+
+                            case IDLE:
+
+                                break;
+                        }
+
+                        drive.update();
+                        Pose2d poseEstimate = drive.getPoseEstimate();
+
+
+                        // Print pose to telemetry
+                        telemetry.addData("x", poseEstimate.getX());
+                        telemetry.addData("y", poseEstimate.getY());
+                        telemetry.addData("heading", poseEstimate.getHeading());
+                        telemetry.update();
+
+
+                    }
+
+                    break;
+
+                case 4:
+                    currentState4 = State4.TRAJECTORY_1;
+                    drive.claw.setPosition(0);
+                    drive.followTrajectoryAsync(wobbleDropOne);
+
+                    while (opModeIsActive() && !isStopRequested()) {
+                        switch (currentState4) {
+                            case TRAJECTORY_1:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TURN;
+                                    drive.turnAsync(turnAngle);
+
+                                }
+                                break;
+
+                            case TURN:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.SHOOT;
+                                    drive.waitTimer.reset();
+                                    drive.shoot();
+
+                                }
+                                break;
+
+                            case SHOOT:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TRAJ_2;
+
+                                    drive.followTrajectoryAsync(case4WobbleOne);
+
+                                }
+                                break;
+
+                            case TRAJ_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TURN_3;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop();
+                                }
+                                break;
+
+                            case TURN_3:
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.DROP;
+                                    drive.turnAsync(case4turn1);
+
+                                }
+
+                            case DROP:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TURN_2;
+
+                                    drive.followTrajectoryAsync(beruh);
+                                    telemetry.addLine("yo what's popping");
+                                    telemetry.update();
+
+
+                                }
+                                break;
+
+                            case TURN_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TRAJ_3;
+                                    drive.turnAsync(turnAngle);
+                                    telemetry.addLine("I hate my wife");
+                                    telemetry.update();
+
+
+                                }
+
+                            case TRAJ_3:
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TRAJ_4;
+
+                                    drive.followTrajectoryAsync(backUp);
+                                    drive.followTrajectoryAsync(wobbleGrab);
+                                }
+                                break;
+
+                            case TRAJ_4:
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.GRAB;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleGrab();
+                                }
+
+                            case GRAB:
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TRAJ_5;
+
+                                    drive.followTrajectoryAsync(case4WobbleTwo);
+
+                                }
+                            case TRAJ_5:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.TURN_4;
+
+                                    drive.waitTimer.reset();
+                                    drive.wobbleDrop2();
+                                }
+                                break;
+
+                            case TURN_4:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.DROP_2;
+                                    drive.turnAsync(case4turn2);
+
+
+                                }
+
+                            case DROP_2:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.PARK;
+                                    drive.followTrajectoryAsync(case4park);
+                                }
+                                break;
+
+
+                            case PARK:
+
+                                if (!drive.isBusy()) {
+                                    currentState4 = State4.IDLE;
+
+
+                                }
+                            case IDLE:
+
+                                break;
+                        }
+
+                        drive.update();
+                        Pose2d poseEstimate = drive.getPoseEstimate();
+
+
+                        // Print pose to telemetry
+                        telemetry.addData("x", poseEstimate.getX());
+                        telemetry.addData("y", poseEstimate.getY());
+                        telemetry.addData("heading", poseEstimate.getHeading());
+                        telemetry.update();
+
+
+                    }
+
+
+                    break;
+            }
+
+
+        }
 }
 

@@ -469,68 +469,42 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public void shoot() {
 
+        //FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
+        //FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
 
 
-
-        FlyWheel1.setVelocity(1500 * 13.5 / getVoltage());
-        FlyWheel2.setVelocity(1500 * 13.5 / getVoltage());
+        FlyWheel1.setVelocity(1450 * 13.45 / getVoltage());
+        FlyWheel2.setVelocity(1450 * 13.45 / getVoltage());
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 1900){
-            if (waitTimer.milliseconds() >= 250 && waitTimer.milliseconds() < 400){
-                ringHopper.setPosition(0.9);
-
-
-
-
-            }
-            if (waitTimer.milliseconds() >= 400 && waitTimer.milliseconds() < 650){
-                ringHopper.setPosition(0.5);
-
-            }
-            if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 800){
-                ringHopper.setPosition(0.9);
-
-
-
-            }
-            if (waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1050){
-                ringHopper.setPosition(0.5);
-
-
-
-            }
-            if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1200){
-                ringHopper.setPosition(0.9);
-
-
-
-            }
-            if (waitTimer.milliseconds() >= 1200 && waitTimer.milliseconds() < 1450){
-                ringHopper.setPosition(0.5);
-
-
-
-            }
-            if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1600){
+        while(waitTimer.milliseconds() < 2000){
+            if (waitTimer.milliseconds() >= 500 && waitTimer.milliseconds() < 650){
                 ringHopper.setPosition(0.9);
             }
-            if (waitTimer.milliseconds() >= 1600 && waitTimer.milliseconds() < 1850){
+            if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 900){
                 ringHopper.setPosition(0.5);
-
-
             }
-            if (waitTimer.milliseconds() > 1850){
-                FlyWheel1.setVelocity(0);
-                FlyWheel2.setVelocity(0);
-
+            if (waitTimer.milliseconds() >= 900 && waitTimer.milliseconds() < 1050){
+                ringHopper.setPosition(0.9);
             }
-
-
-
+            if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1300){
+                ringHopper.setPosition(0.5);
+            }
+            if (waitTimer.milliseconds() >= 1300 && waitTimer.milliseconds() < 1450){
+                ringHopper.setPosition(0.9);
+            }
+            if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1700){
+                ringHopper.setPosition(0.5);
+            }
+            if (waitTimer.milliseconds() >= 1700 && waitTimer.milliseconds() < 1850){
+                ringHopper.setPosition(0.9);
+            }
+            if (waitTimer.milliseconds() >= 1850 && waitTimer.milliseconds() < 2000){
+                ringHopper.setPosition(0.5);
+            }
         }
-
-
+        FlyWheel1.setVelocity(0);
+        FlyWheel2.setVelocity(0);
     }
 
     public void wobbleDrop () {
@@ -539,13 +513,13 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         while(waitTimer.milliseconds() < 1300){
 
-            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 750){
+            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 800){
 
                 Arm.setPower(0);
 
 
             }
-            if(waitTimer.milliseconds() >= 750 && waitTimer.milliseconds() < 950){
+            if(waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1000){
 
                 claw.setPosition(1);
 
@@ -572,10 +546,10 @@ public class SampleMecanumDrive extends MecanumDrive {
 
             if (waitTimer.milliseconds() >= 950){
 
-                Arm.setPower(0.4);
+                Arm.setPower(0.5);
 
             }
-            if(waitTimer.milliseconds() >= 1200){
+            if(waitTimer.milliseconds() >= 1250){
 
                 Arm.setPower(0);
 

@@ -71,7 +71,7 @@ public class Vision {
             x = bitmap.getWidth() * 1000 / 1280;
         } else //red side
         {
-            x = 0;
+            x = 50;
         }
 
         int highY = 8964;
