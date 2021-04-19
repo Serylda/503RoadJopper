@@ -184,11 +184,11 @@ public class DoALittleJopping extends LinearOpMode {
                 .build();
 
         Trajectory wobbleGrabc1 = drive.trajectoryBuilder(back2c1.end())
-                .lineToLinearHeading(new Pose2d(-42, -34, Math.toRadians(115)))
+                .lineToLinearHeading(new Pose2d(-42, -30, Math.toRadians(100)))
                 .build();
 
         Trajectory drop2c1 = drive.trajectoryBuilder(wobbleGrabc1.end())
-                .lineToConstantHeading(new Vector2d(15, -35))
+                .lineToLinearHeading(new Pose2d(15, -38, Math.toRadians(50)))
                 .build();
 
 
@@ -381,8 +381,7 @@ public class DoALittleJopping extends LinearOpMode {
                             case SHOOT:
                                 if(!drive.isBusy()){
                                     currentState1 = State1.TURNBACK;
-                                    drive.waitTimer.reset();
-                                    drive.wobbleGrab();
+
                                     drive.turnAsync(shootTurnBackc1);
                                 }
                                 break;
@@ -394,6 +393,7 @@ public class DoALittleJopping extends LinearOpMode {
                                     drive.followTrajectoryAsync(back2c1);
 
 
+
                                 }
                                 break;
 
@@ -403,9 +403,9 @@ public class DoALittleJopping extends LinearOpMode {
 
                                 if (!drive.isBusy()) {
                                     currentState1 = State1.WOBBLE;
-                                    drive.waitTimer.reset();
+
                                     drive.followTrajectoryAsync(wobbleGrabc1);
-                                    drive.wobbleDrop();
+
                                 }
                                 break;
 
