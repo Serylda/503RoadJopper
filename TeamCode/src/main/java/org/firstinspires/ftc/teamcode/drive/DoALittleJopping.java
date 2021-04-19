@@ -405,7 +405,7 @@ public class DoALittleJopping extends LinearOpMode {
                                     currentState1 = State1.WOBBLE;
                                     drive.waitTimer.reset();
                                     drive.followTrajectoryAsync(wobbleGrabc1);
-                                    drive.wobbleGrab();
+                                    drive.wobbleDrop();
                                 }
                                 break;
 
