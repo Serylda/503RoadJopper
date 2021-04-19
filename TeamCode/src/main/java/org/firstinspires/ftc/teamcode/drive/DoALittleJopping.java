@@ -381,6 +381,8 @@ public class DoALittleJopping extends LinearOpMode {
                             case SHOOT:
                                 if(!drive.isBusy()){
                                     currentState1 = State1.TURNBACK;
+                                    drive.waitTimer.reset();
+                                    drive.wobbleGrab();
                                     drive.turnAsync(shootTurnBackc1);
                                 }
                                 break;
@@ -388,9 +390,9 @@ public class DoALittleJopping extends LinearOpMode {
                             case TURNBACK:
                                 if(!drive.isBusy()){
                                     currentState1 = State1.BACK_2;
-                                    drive.waitTimer.reset();
+
                                     drive.followTrajectoryAsync(back2c1);
-                                    drive.wobbleGrab();
+
 
                                 }
                                 break;
@@ -401,7 +403,9 @@ public class DoALittleJopping extends LinearOpMode {
 
                                 if (!drive.isBusy()) {
                                     currentState1 = State1.WOBBLE;
+                                    drive.waitTimer.reset();
                                     drive.followTrajectoryAsync(wobbleGrabc1);
+                                    drive.wobbleGrab();
                                 }
                                 break;
 
