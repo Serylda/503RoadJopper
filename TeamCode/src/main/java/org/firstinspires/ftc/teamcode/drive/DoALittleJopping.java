@@ -179,16 +179,16 @@ public class DoALittleJopping extends LinearOpMode {
 
         Pose2d shootTurnPose2c1 = case4WobbleOne.end().plus(new Pose2d(0, 0, shootTurnBackc1));
 
-        Trajectory back2c1 = drive.trajectoryBuilder(shootTurnPose2c1)
-                .lineToLinearHeading(new Pose2d(-43.5, -52, Math.toRadians(180))) //ctor2d(-43.5, -52), Math.toRadians(90))
+        Trajectory back2c1 = drive.trajectoryBuilder(shootPos.end())
+                .lineToLinearHeading(new Pose2d(-43.5, -52, Math.toRadians(0))) //ctor2d(-43.5, -52), Math.toRadians(176))
                 .build();
 
         Trajectory wobbleGrabc1 = drive.trajectoryBuilder(back2c1.end())
-                .lineToLinearHeading(new Pose2d(-42, -34, Math.toRadians(94)))
+                .lineToLinearHeading(new Pose2d(-42, -34, Math.toRadians(115)))
                 .build();
 
         Trajectory drop2c1 = drive.trajectoryBuilder(wobbleGrabc1.end())
-                .lineToConstantHeading(new Vector2d(17, -37))
+                .lineToConstantHeading(new Vector2d(15, -35))
                 .build();
 
 
@@ -210,7 +210,7 @@ public class DoALittleJopping extends LinearOpMode {
 
             if (isStopRequested()) return;
 
-            switch (ringCount) {
+            switch (1) {        //ringCount
 
                 case 0:
                     currentState = State.TRAJECTORY_1;
@@ -367,6 +367,7 @@ public class DoALittleJopping extends LinearOpMode {
                                     drive.turnAsync(shootTurnc1);
 
                                 }
+
                                 break;
 
                             case TURN:*/
@@ -387,7 +388,9 @@ public class DoALittleJopping extends LinearOpMode {
                             case TURNBACK:
                                 if(!drive.isBusy()){
                                     currentState1 = State1.BACK_2;
+                                    drive.waitTimer.reset();
                                     drive.followTrajectoryAsync(back2c1);
+                                    drive.wobbleGrab();
 
                                 }
                                 break;
