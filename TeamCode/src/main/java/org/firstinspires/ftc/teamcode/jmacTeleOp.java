@@ -154,13 +154,14 @@ public class jmacTeleOp extends LinearOpMode {
     }
 
 
-    public void runFlyWheel()
-    {
-        if (gamepad2.left_trigger> 0.2) {
-            mDrive.FlyWheel1.setVelocity(1500 * 13.5 / mDrive.getVoltage());
-            mDrive.FlyWheel2.setVelocity(1500 * 13.5 / mDrive.getVoltage());
-        }
-        else {
+    public void runFlyWheel() {
+        if (gamepad2.left_trigger > 0.2) {
+            mDrive.FlyWheel1.setVelocity(1500 * 13.55 / mDrive.getVoltage());
+            mDrive.FlyWheel2.setVelocity(1500 * 13.55 / mDrive.getVoltage());
+        } else if (gamepad2.left_bumper) {
+            mDrive.FlyWheel1.setVelocity(1250 * 13.5 / mDrive.getVoltage());
+            mDrive.FlyWheel2.setVelocity(1250 * 13.5 / mDrive.getVoltage());
+        } else {
             mDrive.FlyWheel1.setPower(0);
             mDrive.FlyWheel2.setPower(0);
         }
@@ -172,20 +173,16 @@ public class jmacTeleOp extends LinearOpMode {
 
         if (gamepad2.right_bumper) {
             mDrive.ringHopper.setPosition(0.9);
-           // mDrive.Intake.setPower(-1);
-           // sleep(150);
-           // mDrive.Intake.setPower(0);
-            /*
-            mDrive.ringHopper.setPosition(1);
-            sleep(75);
-            mDrive.ringHopper.setPosition(0);
-            sleep(75);
-            mDrive.ringHopper.setPosition(0.5);*/
         }
-        else
+        else if (gamepad2.right_trigger >= 0.3){
+            mDrive.ringHopper.setPosition(0.9);
+        }
+        else{
             mDrive.ringHopper.setPosition(0.5);
+        }
 
-        if(gamepad2.right_trigger > 0.2){
+/*
+        if (gamepad2.right_trigger > 0.2) {
             //shot 1
             mDrive.ringHopper.setPosition(0.9);
             sleep(150);
@@ -206,17 +203,7 @@ public class jmacTeleOp extends LinearOpMode {
             sleep(150);
             mDrive.ringHopper.setPosition(0.5);
             sleep(250);
-
-        }
-
-        if (gamepad2.left_bumper) {
-            mDrive.FlyWheel1.setVelocity(1300 * 13.6 / mDrive.getVoltage());
-            mDrive.FlyWheel2.setVelocity(1300 * 13.6 / mDrive.getVoltage());
-        }
-        else {
-                mDrive.FlyWheel1.setPower(0);
-                mDrive.FlyWheel2.setPower(0);
-        }
+        }*/
 
         //telemetry.addData("vel2", mDrive.FlyWheel2.getVelocity());
         //telemetry.update();
@@ -227,18 +214,18 @@ public class jmacTeleOp extends LinearOpMode {
             mDrive.Intake.setPower(gamepad1.right_trigger);
         else if (gamepad1.left_trigger > 0.2)
             mDrive.Intake.setPower(-gamepad1.left_trigger);
-        else if (Math.abs(gamepad2.left_stick_y) > 0.2)
-            mDrive.Intake.setPower(gamepad2.left_stick_y);
+        else if (Math.abs(gamepad2.right_stick_y) > 0.2)
+            mDrive.Intake.setPower(gamepad2.right_stick_y);
         else
             mDrive.Intake.setPower(0);
     }
 
     public void doArm()
     {
-         if (gamepad2.right_stick_button)
+         /*if (gamepad2.right_stick_button)
              mDrive.Arm.setPower(gamepad2.right_stick_y);
-         else
-             mDrive.Arm.setPower(gamepad2.right_stick_y / 2);
+         else*/
+             mDrive.Arm.setPower(gamepad2.left_stick_y / 3);
 
         //telemetry.addData("Arm", mDrive.Arm.getCurrentPosition());
     }
@@ -261,9 +248,9 @@ public class jmacTeleOp extends LinearOpMode {
     {
         if (gamepad2.dpad_up){
             mDrive.Intake.setPower(1);
-            sleep(20);
-            mDrive.Intake.setPower(-1);
             sleep(150);
+            mDrive.Intake.setPower(-1);
+            sleep(300);
             mDrive.Intake.setPower(0);
 
         }

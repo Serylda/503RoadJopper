@@ -473,8 +473,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         //FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
 
 
-        FlyWheel1.setVelocity(1450 * 13.45 / getVoltage());
-        FlyWheel2.setVelocity(1450 * 13.45 / getVoltage());
+        FlyWheel1.setVelocity(1450 * 13.55 / getVoltage());
+        FlyWheel2.setVelocity(1450 * 13.55 / getVoltage());
         waitTimer.reset();
 
         while(waitTimer.milliseconds() < 2000){
@@ -511,15 +511,15 @@ public class SampleMecanumDrive extends MecanumDrive {
         Arm.setPower(-0.35);
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 1300){
+        while(waitTimer.milliseconds() < 1200){
 
-            if(waitTimer.milliseconds() >= 550 && waitTimer.milliseconds() < 800){
+            if(waitTimer.milliseconds() >= 750 && waitTimer.milliseconds() < 950){
 
                 Arm.setPower(0);
 
 
             }
-            if(waitTimer.milliseconds() >= 800 && waitTimer.milliseconds() < 1000){
+            if(waitTimer.milliseconds() >= 950 && waitTimer.milliseconds() < 1200){
 
                 claw.setPosition(1);
 
