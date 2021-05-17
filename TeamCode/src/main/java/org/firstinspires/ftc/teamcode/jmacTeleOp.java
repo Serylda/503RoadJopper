@@ -156,11 +156,17 @@ public class jmacTeleOp extends LinearOpMode {
 
     public void runFlyWheel() {
         if (gamepad2.left_trigger > 0.2) {
-            mDrive.FlyWheel1.setVelocity(1500 * 13.55 / mDrive.getVoltage());
-            mDrive.FlyWheel2.setVelocity(1500 * 13.55 / mDrive.getVoltage());
+            mDrive.FlyWheel1.setPower(1);
+            mDrive.FlyWheel2.setPower(1);
+            mDrive.Intake.setPower(-1);
+            //mDrive.FlyWheel1.setVelocity(1500 * 13.55 / mDrive.getVoltage());
+            //mDrive.FlyWheel2.setVelocity(1500 * 13.55 / mDrive.getVoltage());
         } else if (gamepad2.left_bumper) {
-            mDrive.FlyWheel1.setVelocity(1250 * 13.5 / mDrive.getVoltage());
-            mDrive.FlyWheel2.setVelocity(1250 * 13.5 / mDrive.getVoltage());
+            mDrive.FlyWheel1.setPower(0.82);
+            mDrive.FlyWheel2.setPower(0.82);
+            mDrive.Intake.setPower(-1);
+            //mDrive.FlyWheel1.setVelocity(1250 * 13.5 / mDrive.getVoltage());
+            //mDrive.FlyWheel2.setVelocity(1250 * 13.5 / mDrive.getVoltage());
         } else {
             mDrive.FlyWheel1.setPower(0);
             mDrive.FlyWheel2.setPower(0);
@@ -174,8 +180,28 @@ public class jmacTeleOp extends LinearOpMode {
         if (gamepad2.right_bumper) {
             mDrive.ringHopper.setPosition(0.9);
         }
-        else if (gamepad2.right_trigger >= 0.3){
+        else if (gamepad2.right_trigger >= 0.2){
+            //mDrive.ringHopper.setPosition(0.9);
+            //shot 1
             mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(250);
+            //shot 2
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(250);
+            //shot 3
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(250);
+            //shot 4
+            mDrive.ringHopper.setPosition(0.9);
+            sleep(150);
+            mDrive.ringHopper.setPosition(0.5);
+            sleep(250);
         }
         else{
             mDrive.ringHopper.setPosition(0.5);

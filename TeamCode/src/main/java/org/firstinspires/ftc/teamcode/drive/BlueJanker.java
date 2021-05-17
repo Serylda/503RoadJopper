@@ -4,28 +4,17 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.profile.VelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
-import com.acmerobotics.roadrunner.trajectory.constraints.MecanumVelocityConstraint;
-import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
-import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Vision;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
 
 @SuppressWarnings("ALL")
-@Autonomous(name="no full auto in the building", group="auto")
+@Autonomous(name="jank bluemo", group="auto")
 //@Disabled
 
-public class BetterJopper extends LinearOpMode {
+public class BlueJanker extends LinearOpMode {
 
     enum State {
         TRAJECTORY_1,   // First, follow a splineTo() trajectory
@@ -81,7 +70,7 @@ public class BetterJopper extends LinearOpMode {
     State1 currentState1 = State1.IDLE;
     State4 currentState4 = State4.IDLE;
 
-    Pose2d startPose = new Pose2d(-62, -45, Math.toRadians(0));
+    Pose2d startPose = new Pose2d(-62, 45, Math.toRadians(0));
 
 
     @Override
@@ -90,7 +79,7 @@ public class BetterJopper extends LinearOpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Vision vision = new Vision(this);
-        int ringCount = vision.ringCount('r');
+        int ringCount = vision.ringCount('b');
         telemetry.addData("Ring Count: ", ringCount);
         telemetry.update();
         drive.claw.setPosition(0);
@@ -98,47 +87,48 @@ public class BetterJopper extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory wobbleDropOne = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(0, -53, Math.toRadians(315)))
+                .lineToLinearHeading(new Pose2d(0, 53, Math.toRadians(20)))
                 .build();
 
-        double turnAngle = Math.toRadians(64);
-
+        double turnAngle = Math.toRadians(-38);
         Pose2d newLastPose = wobbleDropOne.end().plus(new Pose2d(0, 0, turnAngle));
 
-
+        /*
         Trajectory backUp = drive.trajectoryBuilder(newLastPose)
-                .lineToLinearHeading(new Pose2d(-45, -53, Math.toRadians(90))) //ctor2d(-43.5, -52), Math.toRadians(176))
+                .lineToConstantHeading(new Vector2d(-50, 53)) //ctor2d(-43.5, -52), Math.toRadians(176))
                 .build();
 
 
         Trajectory wobbleGrab = drive.trajectoryBuilder(backUp.end())
-                .lineToConstantHeading(new Vector2d(-42.35, -35))
+                //.forward(18)
+                .lineToLinearHeading(new Pose2d(-52, 37, Math.toRadians(-90)))
                 .build();
 
         Trajectory wobbleDropTwo = drive.trajectoryBuilder(wobbleGrab.end())
-                .lineToLinearHeading(new Pose2d(-3, -53, Math.toRadians(335)))
+                .lineToLinearHeading(new Pose2d(-3, 53, Math.toRadians(0)))
                 .build();
-
-        Trajectory strafe = drive.trajectoryBuilder(wobbleDropTwo.end())
-                .strafeLeft(25)
+        */
+        Trajectory strafe = drive.trajectoryBuilder(newLastPose)
+                .strafeRight(20)
                 //.splineTo(new Vector2d(-8, -30), Math.toRadians(319))
                 //.splineTo(new Vector2d(15, 0), Math.toRadians(0))
                 //.splineTo(new Vector2d(15, -30), Math.toRadians(0))
                 .build();
 
 
+
         Trajectory park = drive.trajectoryBuilder(strafe.end())
-                .forward(10)
+                .forward(20)
                 .build();
 
 
 
         Trajectory case4WobbleOne = drive.trajectoryBuilder(newLastPose)
-                .lineToLinearHeading(new Pose2d(52, -53, Math.toRadians(319)))
+                .lineToLinearHeading(new Pose2d(52, 53, Math.toRadians(10)))
                 .build();
 
 
-        double case4turn1 = Math.toRadians(41);
+        double case4turn1 = Math.toRadians(-10);
 
         Pose2d case4Turn1Pose = case4WobbleOne.end().plus(new Pose2d(0, 0, case4turn1));
 
@@ -146,6 +136,7 @@ public class BetterJopper extends LinearOpMode {
                 .back(40)
                 .build();*/
 
+        /*
         Trajectory beruh = drive.trajectoryBuilder(case4Turn1Pose)
                 .lineToLinearHeading(new Pose2d(0, -52, Math.toRadians(0))) //0,-52, 319/0
                 .build();
@@ -157,30 +148,30 @@ public class BetterJopper extends LinearOpMode {
 
         /*Trajectory case4back2 = drive.trajectoryBuilder(case4WobbleTwo.end())
                 .back(40)
-                .build();*/
+                .build();
 
         double case4turn2 = Math.toRadians(30);
 
         Pose2d case4Turn2Pose = wobbleDropOne.end().plus(new Pose2d(0, 0, case4turn2));
+        */
 
-
-        Trajectory case4park = drive.trajectoryBuilder(case4Turn2Pose)
-                .splineTo(new Vector2d(10, -30), Math.toRadians(0))
+        Trajectory case4park = drive.trajectoryBuilder(case4Turn1Pose)
+                .lineTo(new Vector2d(10, 30))
                 .build();
 
 
 
 
         Trajectory drop1c1 = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(22, -43, 0))
+                .lineToLinearHeading(new Pose2d(22, 43, Math.toRadians(-45)))
                 .build();
 
         Trajectory back1c1 = drive.trajectoryBuilder(drop1c1.end())
-                .lineTo(new Vector2d(0, -41))
+                .lineToConstantHeading(new Vector2d(-10, 41))
                 .build();
 
         Trajectory shootPos = drive.trajectoryBuilder(back1c1.end())
-                .lineToLinearHeading(new Pose2d(0, -54, Math.toRadians(15.5)))
+                .lineToLinearHeading(new Pose2d(0, 54, Math.toRadians(-16.5)))
                 .build();
 
         /*
@@ -189,7 +180,8 @@ public class BetterJopper extends LinearOpMode {
         Pose2d shootTurnPosec1 = case4WobbleOne.end().plus(new Pose2d(0, 0, shootTurnc1));
 
         */
-        double shootTurnBackc1 = Math.toRadians(-15.5);
+        /*
+        double shootTurnBackc1 = Math.toRadians(17);
 
         Pose2d shootTurnPose2c1 = case4WobbleOne.end().plus(new Pose2d(0, 0, shootTurnBackc1));
 
@@ -202,10 +194,11 @@ public class BetterJopper extends LinearOpMode {
                 .build();
 
         Trajectory drop2c1 = drive.trajectoryBuilder(wobbleGrabc1.end())
-                .lineToLinearHeading(new Pose2d(18, -38, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(18, -38, Math.toRadians(5)))
                 .build();
+        */
 
-        Trajectory parkc1 = drive.trajectoryBuilder(drop2c1.end())
+        Trajectory parkc1 = drive.trajectoryBuilder(shootPos.end())
                 .strafeLeft(20)
                 .build();
 
@@ -259,14 +252,14 @@ public class BetterJopper extends LinearOpMode {
                             case TURN:
 
                                 if (!drive.isBusy()) {
-                                    currentState = State.SHOOT;
+                                    currentState = State.DROP_2;
                                     drive.waitTimer.reset();
                                     drive.shoot();
 
 
                                 }
                                 break;
-
+                            /*
                             case SHOOT:
 
                                 if (drive.waitTimer.milliseconds() > 1900) {
@@ -310,6 +303,8 @@ public class BetterJopper extends LinearOpMode {
 
 
                                 }
+
+                             */
                             case DROP_2:
 
                                 if (!drive.isBusy()) {
@@ -398,12 +393,14 @@ public class BetterJopper extends LinearOpMode {
 
                             case TURN:*/
                                 if(!drive.isBusy()){
-                                    currentState1 = State1.SHOOT;
+                                    currentState1 = State1.DROP_2;
                                     drive.waitTimer.reset();
                                     drive.shoot();
 
                                 }
                                 break;
+
+                                /*
                             case SHOOT:
                                 if(!drive.isBusy()){
                                     currentState1 = State1.TURNBACK;
@@ -461,6 +458,9 @@ public class BetterJopper extends LinearOpMode {
 
 
                                 }
+
+
+                                 */
                             case DROP_2:
 
                                 if (!drive.isBusy()) {
@@ -544,11 +544,12 @@ public class BetterJopper extends LinearOpMode {
 
                             case TURN_3:
                                 if (!drive.isBusy()) {
-                                    currentState4 = State4.DROP;
+                                    currentState4 = State4.DROP_2;
                                     drive.turnAsync(case4turn1);
 
                                 }
 
+                                /*
                             case DROP:
 
                                 if (!drive.isBusy()) {
@@ -623,6 +624,8 @@ public class BetterJopper extends LinearOpMode {
 
                                 }
 
+
+                                 */
                             case DROP_2:
 
                                 if (!drive.isBusy()) {

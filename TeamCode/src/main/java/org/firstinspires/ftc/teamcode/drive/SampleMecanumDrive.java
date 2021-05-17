@@ -473,33 +473,33 @@ public class SampleMecanumDrive extends MecanumDrive {
         //FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
 
 
-        FlyWheel1.setVelocity(1450 * 13.55 / getVoltage());
-        FlyWheel2.setVelocity(1450 * 13.55 / getVoltage());
+        FlyWheel1.setVelocity(1400); //* 13.55 / getVoltage());
+        FlyWheel2.setVelocity(1400); //* 13.55 / getVoltage());
         waitTimer.reset();
 
-        while(waitTimer.milliseconds() < 2000){
+        while(waitTimer.milliseconds() < 2300){
             if (waitTimer.milliseconds() >= 500 && waitTimer.milliseconds() < 650){
                 ringHopper.setPosition(0.9);
             }
-            if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 900){
+            if (waitTimer.milliseconds() >= 650 && waitTimer.milliseconds() < 1000){
                 ringHopper.setPosition(0.5);
             }
-            if (waitTimer.milliseconds() >= 900 && waitTimer.milliseconds() < 1050){
+            if (waitTimer.milliseconds() >= 1000 && waitTimer.milliseconds() < 1150){
                 ringHopper.setPosition(0.9);
             }
-            if (waitTimer.milliseconds() >= 1050 && waitTimer.milliseconds() < 1300){
+            if (waitTimer.milliseconds() >= 1150 && waitTimer.milliseconds() < 1500){
                 ringHopper.setPosition(0.5);
             }
-            if (waitTimer.milliseconds() >= 1300 && waitTimer.milliseconds() < 1450){
+            if (waitTimer.milliseconds() >= 1500 && waitTimer.milliseconds() < 1650){
                 ringHopper.setPosition(0.9);
             }
-            if (waitTimer.milliseconds() >= 1450 && waitTimer.milliseconds() < 1700){
+            if (waitTimer.milliseconds() >= 1650 && waitTimer.milliseconds() < 2000){
                 ringHopper.setPosition(0.5);
             }
-            if (waitTimer.milliseconds() >= 1700 && waitTimer.milliseconds() < 1850){
+            if (waitTimer.milliseconds() >= 2000 && waitTimer.milliseconds() < 2150){
                 ringHopper.setPosition(0.9);
             }
-            if (waitTimer.milliseconds() >= 1850 && waitTimer.milliseconds() < 2000){
+            if (waitTimer.milliseconds() >= 2150 && waitTimer.milliseconds() < 2300){
                 ringHopper.setPosition(0.5);
             }
         }
