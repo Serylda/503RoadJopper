@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Vision;
 
 @SuppressWarnings("ALL")
-@Autonomous(name="jank bluemo", group="auto")
+@Autonomous(name="real jank bluemo", group="auto")
 //@Disabled
 
 public class BlueJanker extends LinearOpMode {
@@ -156,22 +156,22 @@ public class BlueJanker extends LinearOpMode {
         */
 
         Trajectory case4park = drive.trajectoryBuilder(case4Turn1Pose)
-                .lineTo(new Vector2d(10, 30))
+                .lineTo(new Vector2d(10, 53))
                 .build();
 
 
 
 
         Trajectory drop1c1 = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(22, 43, Math.toRadians(-45)))
+                .lineToLinearHeading(new Pose2d(22, 43, Math.toRadians(-50)))
                 .build();
 
         Trajectory back1c1 = drive.trajectoryBuilder(drop1c1.end())
-                .lineToConstantHeading(new Vector2d(-10, 41))
+                .lineToLinearHeading(new Pose2d(0, 47, Math.toRadians(-16)))
                 .build();
 
         Trajectory shootPos = drive.trajectoryBuilder(back1c1.end())
-                .lineToLinearHeading(new Pose2d(0, 54, Math.toRadians(-16.5)))
+                .lineToLinearHeading(new Pose2d(0, 54, Math.toRadians(-16)))
                 .build();
 
         /*
@@ -199,7 +199,7 @@ public class BlueJanker extends LinearOpMode {
         */
 
         Trajectory parkc1 = drive.trajectoryBuilder(shootPos.end())
-                .strafeLeft(20)
+                .strafeLeft(10)
                 .build();
 
 
@@ -207,7 +207,7 @@ public class BlueJanker extends LinearOpMode {
             drive.claw.setPosition(0);
             //drive.FlyWheel2.setVelocityPIDFCoefficients(1.622, 0.1622, 0, 16.22);
             //drive.FlyWheel1.setVelocityPIDFCoefficients(1.26, 0.126, 0, 12.6);
-            ringCount = vision.ringCount('r');
+            ringCount = vision.ringCount('b');
             telemetry.addData("Ring Count: ", ringCount);
             telemetry.update();
         }

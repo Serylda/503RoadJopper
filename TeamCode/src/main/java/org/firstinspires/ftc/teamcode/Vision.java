@@ -69,13 +69,11 @@ public class Vision {
         if (side == 'b') //blue side
         {
             x = bitmap.getWidth() - 5;
-        } else //red side
+        }
+        else //red side
         {
             x = 50;
         }
-        opMode.telemetry.addData("side", side);
-        opMode.telemetry.addData("x", x);
-        opMode.telemetry.update();
 
         int highY = 8964;
         int lowY = 0;
